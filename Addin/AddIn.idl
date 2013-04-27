@@ -1,0 +1,80 @@
+// AddIn.idl : IDL source for AddIn
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (AddIn.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(2445B4EC-CD68-4a61-B695-4ED95A69FB9D),
+	version(1.0),
+	helpstring("CustomImagesAddin 1.0 Type Library")
+]
+library MyAddin1Lib
+{
+	importlib("stdole2.tlb");
+
+	//--------------------------------------
+	// 
+	//--------------------------------------
+
+	[
+		object,
+		uuid(03B2AC65-F984-4d00-ACB3-B7580EF1D56C),
+		dual,
+		helpstring("_IScriptSiteContext Interface"),
+		pointer_default(unique)
+	]
+	interface _IScriptSiteContext : IDispatch
+	{
+		[id(1), propget]
+		HRESULT Application([out, retval] IDispatch* *pResult);
+
+		[id(2), propget]
+		HRESULT ActiveDocument([out, retval] IDispatch* *pResult);
+
+		[id(3), propget]
+		HRESULT ActivePage([out, retval] IDispatch* *pResult);
+	};
+
+	[
+		object,
+		uuid(76973C5D-E651-4f97-A90F-613AAC31933B),
+		dual,
+		pointer_default(unique)
+	]
+	interface IRibbonCallbackInterface : IDispatch
+	{
+		[id(1)] 
+		HRESULT OnRibbonButtonClicked([in] IDispatch * RibbonControl);
+
+		[id(2)]
+		HRESULT OnRibbonLoad([in] IDispatch* disp);
+
+		[id(3)]
+		HRESULT OnRibbonLoadImage([in] BSTR pbstrImageId, [out, retval] IPictureDisp ** ppdispImage);
+
+		[id(4)]
+		HRESULT IsRibbonButtonEnabled([in] IDispatch * RibbonControl, [out, retval] VARIANT_BOOL* pResult);
+
+		[id(5)]
+		HRESULT IsRibbonButtonVisible([in] IDispatch * RibbonControl, [out, retval] VARIANT_BOOL* pResult);
+
+		[id(7)]
+		HRESULT GetRibbonLabel([in] IDispatch *pControl, [out, retval] BSTR *pbstrLabel);
+
+		[id(8)]
+		HRESULT GetItemCount([in] IDispatch *pControl, [out, retval] long *count);
+	};
+
+	[
+		uuid(D62269B9-72CD-4ae9-BD41-B803A832B6F9),
+		helpstring("Connect Class")
+	]
+	coclass Connect
+	{
+		[default] interface IRibbonCallbackInterface;
+	};
+};

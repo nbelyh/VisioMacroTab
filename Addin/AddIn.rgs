@@ -1,0 +1,26 @@
+HKCR
+{
+	CustomImagesAddin.Connect.1 = s 'Connect Class'
+	{
+		CLSID = s '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}'
+	}
+	CustomImagesAddin.Connect = s 'Connect Class'
+	{
+		CLSID = s '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}'
+		CurVer = s 'CustomImagesAddin.Connect.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}' = s 'Connect Class'
+		{
+			ProgID = s 'CustomImagesAddin.Connect.1'
+			VersionIndependentProgID = s 'CustomImagesAddin.Connect'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}'
+		}
+	}
+}

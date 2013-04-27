@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+ 
+	<Product Id="93be0301-60d7-4734-ae7f-050bf1f71b72" 
+           Name="Visio Macro Tab Addin" Language="1033" Version="$(var.Version)"
+           Manufacturer="Nikolay Belyh" 
+           UpgradeCode="70fc7f8d-c2eb-430e-90e9-a6c6769d53b2">
+
+    <Package InstallerVersion="200" Compressed="yes" />
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Upgrade Id="70fc7f8d-c2eb-430e-90e9-a6c6769d53b2">
+      
+      <UpgradeVersion Minimum="1.0.0"
+                      IncludeMinimum="yes"
+                      Maximum="$(var.Version)"
+                      Property="OLDERVERSIONBEINGUPGRADED" />
+      
+      <UpgradeVersion Minimum="$(var.Version)"
+                      OnlyDetect="yes"
+                      Property="NEWERVERSIONDETECTED" />
+    </Upgrade>
+
+    <CustomActionRef Id="WixExitEarlyWithSuccess"/>
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize"/>
+    </InstallExecuteSequence>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION" Name="VisioMacroTabAddin">
+          
+					 <Component Id="ProductComponent" Guid="3e69d0b6-e949-49b7-abec-e8b4ee940bef">
+
+             <File Source="$(var.SolutionDir)/bin/$(var.Configuration)/Addin.dll" ></File>
+             <TypeLib Advertise="yes" Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
+               
+               <Class Advertise="yes" Id="{D62269B9-72CD-4ae9-BD41-B803A832B6F9}" Context="InprocServer32" ThreadingModel="apartment">
+                 <ProgId Id="CustomImagesAddin.Connect.1" Description="CustomImagesAddin">
+                   <ProgId Id="CustomImagesAddin.Connect" Description="CustomImagesAddin" />
+                 </ProgId>
+               </Class>
+               
+               <Interface Id="{76973C5D-E651-4f97-A90F-613AAC31933B}" 
+                          Name="IConnect" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+             </TypeLib>
+             
+					 </Component>
+
+          <Component Id="visioRegistration" DiskId="5" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
+            <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\CustomImagesAddin.Connect">
+              <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
+              <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
+              <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
+            </RegistryKey>
+          </Component>
+
+        </Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="ProductFeature" Title="WixProject1" Level="1">
+      <ComponentRef Id="visioRegistration" />
+			 <ComponentRef Id="ProductComponent" /> 
+		</Feature>
+
+    <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>
+    <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp"/>
+    
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <UIRef Id="WixUI_InstallDir" />
+
+  </Product>
+</Wix>
