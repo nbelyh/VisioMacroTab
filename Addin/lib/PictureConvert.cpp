@@ -6,7 +6,7 @@
 
 HRESULT CustomUiGetPng(LPCWSTR resource_id, IPictureDisp ** result_image, IPictureDisp** result_mask)
 {
-	HMODULE hModule = _AtlModule.GetResourceInstance();
+	HMODULE hModule = AfxGetResourceHandle();
 	HRESULT hr = S_OK;
 
 	using namespace Gdiplus;

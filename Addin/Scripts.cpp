@@ -2,7 +2,8 @@
 
 #include "StdAfx.h"
 
-#include "scripting/activdbg.h"
+#include "import/activdbg.h"
+
 #include "Scripts.h"
 #include "AddIn_i.h"
 
@@ -14,7 +15,7 @@ _COM_SMARTPTR_TYPEDEF(IActiveScriptParse, __uuidof(IActiveScriptParse));
 class CScriptContext :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public ISupportErrorInfoImpl<&__uuidof(_IScriptSiteContext)>,
-	public IDispatchImpl<_IScriptSiteContext, &__uuidof(_IScriptSiteContext), &__uuidof(MyAddin1Lib)>
+	public IDispatchImpl<_IScriptSiteContext, &__uuidof(_IScriptSiteContext), &LIBID_AddinLib>
 {
 public:
 	BEGIN_COM_MAP(CScriptContext)

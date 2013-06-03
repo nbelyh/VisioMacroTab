@@ -2,42 +2,27 @@
 
 #include "stdafx.h"
 #include "resource.h"
+#include "Addin.h"
+
 #include "AddIn_i.h"
+#include "AddIn_i.c"
 
-CAddInModule _AtlModule;
+#include "lib/Visio.h"
+#include "VisioFrameWnd.h"
 
-HINSTANCE hInstRich = NULL;
-
-// DLL Entry Point
-extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
-{
-	_AtlModule.SetResourceInstance(hInstance);
-
-	if (dwReason == DLL_PROCESS_ATTACH)
-	{
-		::InitCommonControls();
-		hInstRich = ::LoadLibrary(CRichEditCtrl::GetLibraryName());
-	}
-	else if (dwReason == DLL_PROCESS_DETACH)
-	{
-		FreeLibrary(hInstRich);
-	}
-
-	return _AtlModule.DllMain(dwReason, lpReserved); 
-}
-
+CComModule _Module;
 
 // Used to determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow(void)
 {
-	return _AtlModule.DllCanUnloadNow();
+	return _Module.DllCanUnloadNow();
 }
 
 
 // Returns a class factory to create an object of the requested type
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
+	return _Module.DllGetClassObject(rclsid, riid, ppv);
 }
 
 
@@ -45,7 +30,7 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 STDAPI DllRegisterServer(void)
 {
 	// registers object, typelib and all interfaces in typelib
-	HRESULT hr = _AtlModule.DllRegisterServer();
+	HRESULT hr = _Module.DllRegisterServer();
 	return hr;
 }
 
@@ -53,7 +38,7 @@ STDAPI DllRegisterServer(void)
 // DllUnregisterServer - Removes entries from the system registry
 STDAPI DllUnregisterServer(void)
 {
-	HRESULT hr = _AtlModule.DllUnregisterServer();
+	HRESULT hr = _Module.DllUnregisterServer();
 	return hr;
 }
 
@@ -88,3 +73,94 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 	}
 	return hr;
 }
+
+BEGIN_OBJECT_MAP(ObjectMap)
+END_OBJECT_MAP()
+
+BOOL CAddinApp::InitInstance()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+	// Initialize COM stuff
+	if (FAILED(_Module.Init(ObjectMap, AfxGetInstanceHandle(), &LIBID_AddinLib)))
+		return FALSE;
+
+	return TRUE;
+}
+
+int CAddinApp::ExitInstance() 
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+	_Module.Term();
+
+	return CWinApp::ExitInstance();
+}
+
+void CAddinApp::OnCommand(UINT id)
+{
+	switch (id)
+	{
+	case ID_SHOW_DOCKED_WINDOW:
+		{
+			Visio::IVWindowPtr window = m_app->GetActiveWindow();
+
+			HWND hwnd = GetVisioWindowHandle(window);
+
+			CVisioFrameWnd* wnd = GetWindowShapeSheet(hwnd);
+			if (wnd)
+			{
+				wnd->Destroy();
+				RegisterWindow(hwnd, NULL);
+			}
+			else
+			{
+				wnd = new CVisioFrameWnd();
+				wnd->Create(window);
+				RegisterWindow(hwnd, wnd);
+			}
+		}
+	}
+}
+
+Visio::IVApplicationPtr CAddinApp::GetVisioApp()
+{
+	return m_app;
+}
+
+void CAddinApp::SetVisioApp( Visio::IVApplicationPtr app )
+{
+	m_app = app;
+}
+
+Office::IRibbonUIPtr CAddinApp::GetRibbon()
+{
+	return m_ribbon;
+}
+
+void CAddinApp::SetRibbon(Office::IRibbonUIPtr ribbon)
+{
+	m_ribbon = ribbon;
+}
+
+CVisioFrameWnd* CAddinApp::GetWindowShapeSheet(HWND hwnd) const
+{
+	int idx = m_shown_windows.FindKey(hwnd);
+
+	if (idx < 0)
+		return NULL;
+	return
+		m_shown_windows.GetValueAt(idx);
+}
+
+void CAddinApp::RegisterWindow(HWND hwnd, CVisioFrameWnd* window)
+{
+	if (window)
+		m_shown_windows.Add(hwnd, window);
+	else
+		m_shown_windows.Remove(hwnd);
+
+	m_ribbon->Invalidate();
+}
+
+CAddinApp theApp;

@@ -12,7 +12,7 @@ import "ocidl.idl";
 	version(1.0),
 	helpstring("CustomImagesAddin 1.0 Type Library")
 ]
-library MyAddin1Lib
+library AddinLib
 {
 	importlib("stdole2.tlb");
 
@@ -45,7 +45,7 @@ library MyAddin1Lib
 		dual,
 		pointer_default(unique)
 	]
-	interface IRibbonCallbackInterface : IDispatch
+	interface ICallbackInterface : IDispatch
 	{
 		[id(1)] 
 		HRESULT OnRibbonButtonClicked([in] IDispatch * RibbonControl);
@@ -62,11 +62,14 @@ library MyAddin1Lib
 		[id(5)]
 		HRESULT IsRibbonButtonVisible([in] IDispatch * RibbonControl, [out, retval] VARIANT_BOOL* pResult);
 
-		[id(7)]
+		[id(6)]
 		HRESULT GetRibbonLabel([in] IDispatch *pControl, [out, retval] BSTR *pbstrLabel);
 
+		[id(7)]
+		HRESULT OnRibbonCheckboxClicked([in] IDispatch *pControl, [in] VARIANT_BOOL *pvarfPressed);
+
 		[id(8)]
-		HRESULT GetItemCount([in] IDispatch *pControl, [out, retval] long *count);
+		HRESULT IsRibbonButtonPressed([in] IDispatch * RibbonControl, [out, retval] VARIANT_BOOL* pResult);
 	};
 
 	[
@@ -75,6 +78,6 @@ library MyAddin1Lib
 	]
 	coclass Connect
 	{
-		[default] interface IRibbonCallbackInterface;
+		[default] interface ICallbackInterface;
 	};
 };

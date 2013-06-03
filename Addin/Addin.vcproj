@@ -12,6 +12,9 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -90,7 +93,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				AdditionalManifestFiles="app.manifest"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -184,7 +186,6 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				AdditionalManifestFiles="app.manifest"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -203,6 +204,118 @@
 				CommandLine=""
 			/>
 		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -216,39 +329,11 @@
 				>
 			</File>
 			<File
-				RelativePath="AddIn.rgs"
+				RelativePath=".\res\AddIn.rgs"
 				>
 			</File>
 			<File
-				RelativePath=".\app.manifest"
-				>
-			</File>
-			<File
-				RelativePath=".\button1.png"
-				>
-			</File>
-			<File
-				RelativePath=".\button2.png"
-				>
-			</File>
-			<File
-				RelativePath=".\button3.png"
-				>
-			</File>
-			<File
-				RelativePath=".\button4.png"
-				>
-			</File>
-			<File
-				RelativePath=".\button5.png"
-				>
-			</File>
-			<File
-				RelativePath=".\Ribbon.xml"
-				>
-			</File>
-			<File
-				RelativePath=".\Settings.png"
+				RelativePath=".\res\Ribbon.xml"
 				>
 			</File>
 		</Filter>
@@ -261,63 +346,39 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Addin.h"
+			>
+		</File>
+		<File
 			RelativePath="AddIn.idl"
 			>
 		</File>
 		<File
-			RelativePath=".\Config.cpp"
+			RelativePath=".\Connect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\Config.h"
+			RelativePath=".\Connect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\ConfigDlg.cpp"
+			RelativePath=".\lib\Language.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\ConfigDlg.h"
+			RelativePath=".\lib\Language.h"
 			>
 		</File>
 		<File
-			RelativePath="Connect.cpp"
+			RelativePath=".\lib\PictureConvert.cpp"
 			>
 		</File>
 		<File
-			RelativePath="Connect.h"
-			>
-		</File>
-		<File
-			RelativePath=".\PageCustomMacro.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\PageCustomMacro.h"
-			>
-		</File>
-		<File
-			RelativePath=".\PageVisioCommand.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\PageVisioCommand.h"
-			>
-		</File>
-		<File
-			RelativePath=".\PictureConvert.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\PictureConvert.h"
+			RelativePath=".\lib\PictureConvert.h"
 			>
 		</File>
 		<File
 			RelativePath="Resource.h"
-			>
-		</File>
-		<File
-			RelativePath=".\RtfScriptEditor.h"
 			>
 		</File>
 		<File
@@ -353,11 +414,51 @@
 			>
 		</File>
 		<File
-			RelativePath=".\VisualStylesXP.cpp"
+			RelativePath=".\lib\TextFile.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\VisualStylesXP.h"
+			RelativePath=".\lib\TextFile.h"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\UI.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\UI.h"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\Utils.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\Utils.h"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\Visio.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\Visio.h"
+			>
+		</File>
+		<File
+			RelativePath=".\VisioFrameWnd.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\VisioFrameWnd.h"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\VisualStylesXP.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\VisualStylesXP.h"
 			>
 		</File>
 	</Files>
