@@ -10,9 +10,9 @@ import "ocidl.idl";
 [
 	uuid(2445B4EC-CD68-4a61-B695-4ED95A69FB9D),
 	version(1.0),
-	helpstring("CustomImagesAddin 1.0 Type Library")
+	helpstring("VisioMacroTabAddin 1.0 Type Library")
 ]
-library AddinLib
+library VisioMacroTabAddin
 {
 	importlib("stdole2.tlb");
 

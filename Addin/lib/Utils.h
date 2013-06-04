@@ -37,7 +37,7 @@
 #define ASSERT_CONTINUE(e)				ATLASSERT(e); if (!(e)) continue;
 #define ASSERT_RETURN_VALUE(e,val)		ATLASSERT(e); if (!(e)) return (val);
 
-#define DEFAULT_SOURCE	L"DockingShapeSheet Addin"
+#define DEFAULT_SOURCE	L"MacroTabAddin"
 
 CString FormatString(LPCWSTR  format, ...);
 void	ThrowComError (HRESULT hr, LPCWSTR error_message, LPCWSTR error_source = DEFAULT_SOURCE);

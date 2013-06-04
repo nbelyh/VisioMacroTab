@@ -13,6 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -22,23 +23,38 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// XML
+// Menu
 //
 
-IDR_RIBBON              TEXT                     "res\\Ribbon.xml"
-IDR_RESOURCE_H			TEXT                     "resource.h"
+IDR_MENU MENU 
+BEGIN
+    POPUP "_POPUP_"
+    BEGIN
+        MENUITEM "ID_SHOW_DOCKED_WINDOW",                 ID_SHOW_DOCKED_WINDOW
+    END
+END
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXT
+//
+
+IDR_RIBBON              TEXT                    "res\\Ribbon.xml"
+IDR_RESOURCE_H          TEXT                    "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // PNG
 //
 
-BUTTON1                 PNG                     "res\\button1.png"
-BUTTON2                 PNG                     "res\\button2.png"
-BUTTON3                 PNG                     "res\\button3.png"
-BUTTON4                 PNG                     "res\\button4.png"
-BUTTON5                 PNG                     "res\\button5.png"
+IDR_BUTTON1             PNG                     "res\\button1.png"
+IDR_BUTTON2             PNG                     "res\\button2.png"
+IDR_BUTTON3             PNG                     "res\\button3.png"
+IDR_BUTTON4             PNG                     "res\\button4.png"
+IDR_BUTTON5             PNG                     "res\\button5.png"
+ID_SHOW_DOCKED_WINDOW_32	PNG                     "res\\window32.png"
+ID_SHOW_DOCKED_WINDOW_16	PNG                     "res\\window16.png"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -119,7 +135,7 @@ IDR_ADDIN               REGISTRY                "res\\AddIn.rgs"
 
 STRINGTABLE 
 BEGIN
-    ID_SHOW_DOCKED_WINDOW      "Docking Sheet Window"
+    ID_SHOW_DOCKED_WINDOW   "MacroTabAddin"
 END
 
 #endif    // English (U.S.) resources

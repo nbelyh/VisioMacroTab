@@ -8,18 +8,32 @@
 #include "lib/PictureConvert.h"
 #include "lib/Visio.h"
 #include "lib/Utils.h"
-#include "lib/UI.h"
 #include "lib/Language.h"
-
+#include "lib/UI.h"
 #include "Connect.h"
 
 /**------------------------------------------------------------------------
 	
 -------------------------------------------------------------------------*/
 
+UINT GetControlCommand(IDispatch* pControl)
+{
+	IRibbonControlPtr control;
+	pControl->QueryInterface(__uuidof(IRibbonControl), (void**)&control);
+
+	CComBSTR tag;
+	if (FAILED(control->get_Tag(&tag)))
+		return S_OK;
+
+	return StrToInt(tag);
+}
+
+/**------------------------------------------------------------------------
+	
+-------------------------------------------------------------------------*/
+
 struct CConnect::Impl 
-	: public VisioIdleTaskProcessor
-	, public VEventHandler
+	: public VEventHandler
 {
 	AddinUi m_ui;
 
@@ -37,16 +51,25 @@ struct CConnect::Impl
 
 		switch(nEventCode) 
 		{
-		case (short)(Visio::visEvtApp|Visio::visEvtNonePending):
-			OnVisioIdle();
+		case (short)(Visio::visEvtCodeWinOnAddonKeyMSG):
+			return OnKeystroke(pSubjectObj, pvResult);
 			break;
 
 		case (short)(Visio::visEvtApp|Visio::visEvtWinActivate):
-			OnWindowActivated();
+			theApp.SetNeedUpdate(true);
 			break;
 
-		case (short)(Visio::visEvtCodeWinOnAddonKeyMSG):
-			return OnKeystroke(pSubjectObj, pvResult);
+		case (short)(Visio::visEvtWindow|Visio::visEvtDel):
+			theApp.SetNeedUpdate(true);
+			break;
+
+		case (short)(Visio::visEvtApp|Visio::visEvtIdle):
+			OnIdle();
+			break;
+
+		case (short)(Visio::visEvtCodeWinSelChange):
+			theApp.SetNeedUpdate(true);
+			break;
 			break;
 
 		}
@@ -54,6 +77,15 @@ struct CConnect::Impl
 		return S_OK;
 
 		LEAVE_METHOD();
+	}
+
+	void OnIdle()
+	{
+		if (theApp.NeedUpdate())
+		{
+			theApp.UpdateButtons();
+			theApp.SetNeedUpdate(false);
+		}
 	}
 
 	/**------------------------------------------------------------------------
@@ -67,15 +99,15 @@ struct CConnect::Impl
 
 		pAddInInst->QueryInterface(__uuidof(IDispatch), (LPVOID*)&m_addin);
 
-		if (GetVisioVersion(app) < 14)
-			m_ui.CreateCommandBarsUi(app);
-
 		Visio::IVEventListPtr evt_list = 
 			app->EventList;
 
-		evt_idle.Advise(evt_list, Visio::visEvtApp|Visio::visEvtNonePending, this);
-		evt_win_activated.Advise(evt_list, Visio::visEvtApp|Visio::visEvtWinActivate, this);
 		evt_keystroke.Advise(evt_list, Visio::visEvtCodeWinOnAddonKeyMSG, this);
+
+		evt_win_activated.Advise(evt_list, Visio::visEvtApp|Visio::visEvtWinActivate, this);
+		evt_win_closed.Advise(evt_list, Visio::visEvtWindow|Visio::visEvtDel, this);
+
+		evt_idle.Advise(evt_list, Visio::visEvtApp|Visio::visEvtIdle, this);
 
 		theApp.SetVisioApp(app);
 	}
@@ -86,87 +118,14 @@ struct CConnect::Impl
 
 	void Destroy() 
 	{
-		m_ui.DestroyCommandBarsUi();
-
 		evt_idle.Unadvise();
+
 		evt_win_activated.Unadvise();
-		evt_keystroke.Unadvise();
+		evt_win_closed.Unadvise();
 
 		theApp.SetVisioApp(NULL);
 
-		ribbon  = NULL;
 		m_addin = NULL;
-	}
-
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	UINT GetControlCommand(IDispatch* pControl)
-	{
-		IRibbonControlPtr control;
-		pControl->QueryInterface(__uuidof(IRibbonControl), (void**)&control);
-
-		CComBSTR tag;
-		if (FAILED(control->get_Tag(&tag)))
-			return S_OK;
-
-		return StrToInt(tag);
-	}
-
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	void OnRibbonButtonClicked(IDispatch * pControl) 
-	{
-		UINT cmd_id = GetControlCommand(pControl);
-
-		if (cmd_id > 0)
-			theApp.OnCommand(cmd_id);
-	}
-
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	VARIANT_BOOL IsRibbonButtonVisible(IDispatch * pControl)
-	{
-		return VARIANT_TRUE;
-	}
-
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	VARIANT_BOOL IsRibbonButtonEnabled(IDispatch * pControl)
-	{
-		Visio::IVApplicationPtr app = theApp.GetVisioApp();
-
-		Visio::IVDocumentPtr doc;
-		if (FAILED(app->get_ActiveDocument(&doc)) || doc == NULL)
-			return VARIANT_FALSE;
-
-		Visio::VisDocumentTypes doc_type = Visio::visDocTypeInval;
-		if (FAILED(doc->get_Type(&doc_type)) || doc_type == Visio::visDocTypeInval)
-			return VARIANT_FALSE;
-
-		return VARIANT_TRUE;
-	}
-
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	VARIANT_BOOL IsRibbonButtonPressed(IDispatch * pControl)
-	{
-		Visio::IVApplicationPtr app = theApp.GetVisioApp();
-
-		Visio::IVWindowPtr window;
-		if (FAILED(app->get_ActiveWindow(&window)) || window == NULL)
-			return VARIANT_FALSE;
-
-		return theApp.GetWindowShapeSheet(GetVisioWindowHandle(window)) != NULL ? VARIANT_TRUE : VARIANT_FALSE;
 	}
 
 	/**------------------------------------------------------------------------
@@ -185,55 +144,23 @@ struct CConnect::Impl
 		return result;
 	}
 
-	/**------------------------------------------------------------------------
-		
-	-------------------------------------------------------------------------*/
-
-	void SetRibbon(IDispatchPtr disp) 
-	{
-	}
-
 	IDispatchPtr m_addin;
 
 	Visio::IVApplicationPtr application;
 	IDispatchPtr addin;
-	IRibbonUIPtr ribbon;
 
-	CVisioEvent	 evt_idle;
-	CVisioEvent	 evt_win_activated;
 	CVisioEvent	 evt_keystroke;
+	CVisioEvent	 evt_win_activated;
+	CVisioEvent	 evt_win_closed;
+	CVisioEvent	 evt_idle;
 
-	CSimpleArray<VisioIdleTask*> idle_tasks;
-
-	void AddVisioIdleTask(VisioIdleTask* task)
+	void OnRibbonCheckboxClicked(IDispatch * pControl, VARIANT_BOOL * pvarfPressed)
 	{
-		idle_tasks.Add(task);
+		UINT cmd_id = GetControlCommand(pControl);
+
+		if (cmd_id > 0)
+			theApp.OnCommand(cmd_id);
 	}
-
-	void OnVisioIdle()
-	{
-		long idx = 0;
-		while (idx < idle_tasks.GetSize())
-		{
-			VisioIdleTask* task = idle_tasks[idx];
-
-			if (task->Execute())
-			{
-				idle_tasks.RemoveAt(idx);
-				delete task;
-			}
-			else
-			{
-				++idx;
-			} 
-		}
-	}
-
-	void OnWindowActivated()
-	{
-		theApp.GetRibbon()->Invalidate();
-	}
-
 
 	HRESULT OnKeystroke(Visio::IVMSGWrapPtr key_msg, VARIANT* pvResult)
 	{
@@ -267,13 +194,6 @@ struct CConnect::Impl
 		return S_OK;
 	}
 
-	void OnRibbonCheckboxClicked(IDispatch * pControl, VARIANT_BOOL * pvarfPressed)
-	{
-		UINT cmd_id = GetControlCommand(pControl);
-
-		if (cmd_id > 0)
-			theApp.OnCommand(cmd_id);
-	}
 };
 
 /**------------------------------------------------------------------------
@@ -375,7 +295,12 @@ STDMETHODIMP CConnect::OnRibbonButtonClicked(IDispatch * disp)
 { 
 	ENTER_METHOD();
 
-	m_impl->OnRibbonButtonClicked(disp);
+	UINT cmd_id = GetControlCommand(disp);
+
+	LanguageLock lock(GetAppLanguage(theApp.GetVisioApp()));
+
+	theApp.OnCommand(cmd_id);
+
 	return S_OK; 
 
 	LEAVE_METHOD();
@@ -416,7 +341,10 @@ STDMETHODIMP CConnect::IsRibbonButtonPressed(IDispatch * RibbonControl, VARIANT_
 {
 	ENTER_METHOD();
 
-	*pResult = m_impl->IsRibbonButtonPressed(RibbonControl);
+	UINT cmd_id = GetControlCommand(RibbonControl);
+
+	*pResult = theApp.IsButtonPressed(cmd_id);
+
 	return S_OK;
 
 	LEAVE_METHOD();
@@ -430,7 +358,10 @@ STDMETHODIMP CConnect::IsRibbonButtonEnabled(IDispatch * RibbonControl, VARIANT_
 {
 	ENTER_METHOD();
 
-	*pResult = m_impl->IsRibbonButtonEnabled(RibbonControl);
+	UINT cmd_id = GetControlCommand(RibbonControl);
+
+	*pResult = theApp.IsButtonEnabled(cmd_id);
+
 	return S_OK;
 
 	LEAVE_METHOD();
@@ -467,7 +398,8 @@ STDMETHODIMP CConnect::IsRibbonButtonVisible(IDispatch * RibbonControl, VARIANT_
 {
 	ENTER_METHOD();
 
-	*pResult = m_impl->IsRibbonButtonVisible(RibbonControl);
+	*pResult = VARIANT_TRUE;
+
 	return S_OK;
 
 	LEAVE_METHOD();

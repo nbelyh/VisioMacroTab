@@ -9,7 +9,7 @@ using namespace AddInDesignerObjects;
 class ATL_NO_VTABLE CConnect : 
 	public CComObjectRootEx<CComSingleThreadModel>
 	, public CComCoClass<CConnect, &__uuidof(Connect)>
-	, public IDispatchImpl<ICallbackInterface, &__uuidof(ICallbackInterface), &LIBID_AddinLib, 1, 0>
+	, public IDispatchImpl<ICallbackInterface, &__uuidof(ICallbackInterface), &LIBID_VisioMacroTabAddin, 1, 0>
 	, public IDispatchImpl<_IDTExtensibility2, &__uuidof(_IDTExtensibility2), &__uuidof(__AddInDesignerObjects), 1, 0>
 	, public IDispatchImpl<IRibbonExtensibility, &__uuidof(IRibbonExtensibility), &__uuidof(__Office), 12, 0>
 {
@@ -52,7 +52,6 @@ public:
 	STDMETHOD(IsRibbonButtonEnabled)(IDispatch * RibbonControl, VARIANT_BOOL* pResult);
 	STDMETHOD(IsRibbonButtonVisible)(IDispatch * RibbonControl, VARIANT_BOOL* pResult);
 	STDMETHOD(IsRibbonButtonPressed)(IDispatch * RibbonControl, VARIANT_BOOL* pResult);
-
 	STDMETHOD(GetRibbonLabel)(IDispatch *pControl, BSTR *pbstrLabel);
 	STDMETHOD(GetRibbonImage)(IDispatch *pControl, IPictureDisp ** ppdispImage);
 

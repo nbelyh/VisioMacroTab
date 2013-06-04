@@ -1,73 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
- 
-	<Product Id="93be0301-60d7-4734-ae7f-050bf1f71b72" 
-           Name="Visio Macro Tab Addin" Language="1033" Version="$(var.Version)"
-           Manufacturer="Nikolay Belyh" 
-           UpgradeCode="70fc7f8d-c2eb-430e-90e9-a6c6769d53b2">
 
-    <Package InstallerVersion="200" Compressed="yes" />
-		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+  <?define Binaries="$(var.SolutionDir)$(var.Platform)\$(var.Configuration)" ?>
+  <?define Version="1.0.0.0"?>
 
-    <Upgrade Id="70fc7f8d-c2eb-430e-90e9-a6c6769d53b2">
-      
-      <UpgradeVersion Minimum="1.0.0"
-                      IncludeMinimum="yes"
-                      Maximum="$(var.Version)"
-                      Property="OLDERVERSIONBEINGUPGRADED" />
-      
-      <UpgradeVersion Minimum="$(var.Version)"
-                      OnlyDetect="yes"
-                      Property="NEWERVERSIONDETECTED" />
-    </Upgrade>
+  <?if $(var.Platform)=x64 ?>
+  <?define Win64YesNo="yes" ?>
+  <?define UpgradeCode = "{4CD29B69-21DF-4838-B8B9-934E65D39BBD}" ?>
+  <?define cf="ProgramFiles64Folder" ?>
+  <?else ?>
+  <?define Win64YesNo="no" ?>
+  <?define UpgradeCode = "{1D108A37-3C86-4db8-92DE-B6C3308287B3}" ?>
+  <?define cf="ProgramFilesFolder" ?>
+  <?endif ?>
 
-    <CustomActionRef Id="WixExitEarlyWithSuccess"/>
+  <Product Id="*"
+           Name="Visio Macro Tab Addin  $(var.Version) ($(var.Platform))"
+           Language="1033"
+           Codepage="1252"
+           Version="$(var.Version)"
+           Manufacturer="Unmanaged Visio"
+           UpgradeCode="$(var.UpgradeCode)">
 
-    <InstallExecuteSequence>
-      <RemoveExistingProducts After="InstallInitialize"/>
-    </InstallExecuteSequence>
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallPrivileges="elevated"
+             InstallScope="perMachine"
+             Platform="$(var.Platform)"
+             />
+
+    <Property Id="MSIFASTINSTALL">1</Property>
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <MajorUpgrade
+      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLLOCATION" Name="VisioMacroTabAddin">
-          
-					 <Component Id="ProductComponent" Guid="3e69d0b6-e949-49b7-abec-e8b4ee940bef">
+      <Directory Id="$(var.cf)">
+        <Directory Id="COMPANYDIR" Name="UnmanagedVisio" >
+          <Directory Id="INSTALLLOCATION" Name="VisioMacroTabAddin">
 
-             <File Source="$(var.SolutionDir)/bin/$(var.Configuration)/Addin.dll" ></File>
-             <TypeLib Advertise="yes" Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
-               
-               <Class Advertise="yes" Id="{D62269B9-72CD-4ae9-BD41-B803A832B6F9}" Context="InprocServer32" ThreadingModel="apartment">
-                 <ProgId Id="CustomImagesAddin.Connect.1" Description="CustomImagesAddin">
-                   <ProgId Id="CustomImagesAddin.Connect" Description="CustomImagesAddin" />
-                 </ProgId>
-               </Class>
-               
-               <Interface Id="{76973C5D-E651-4f97-A90F-613AAC31933B}" 
-                          Name="IConnect" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
-             </TypeLib>
-             
-					 </Component>
+            <Component Id="ProductComponent" Win64="$(var.Win64YesNo)">
 
-          <Component Id="visioRegistration" DiskId="5" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
-            <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\CustomImagesAddin.Connect">
-              <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
-              <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
-              <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
-            </RegistryKey>
-          </Component>
+              <File Source="$(var.Binaries)\Addin.dll" >
+                <TypeLib Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
+                  <Class Id="{D62269B9-72CD-4ae9-BD41-B803A832B6F9}" Context="InprocServer32" ThreadingModel="apartment">
+                    <ProgId Id="VisioMacroTabAddin.Connect.1" Description="VisioMacroTabAddin">
+                      <ProgId Id="VisioMacroTabAddin.Connect" Description="VisioMacroTabAddin" />
+                    </ProgId>
+                  </Class>
+                  <Interface Id="{76973C5D-E651-4f97-A90F-613AAC31933B}" Name="IConnect" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+                </TypeLib>
+              </File>
+            </Component>
 
+            <Component Id="visioRegistration" DiskId="5" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
+              <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\VisioMacroTabAddin.Connect">
+                <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
+                <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
+                <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
+              </RegistryKey>
+            </Component>
+
+          </Directory>
         </Directory>
-			</Directory>
-		</Directory>
+      </Directory>
+    </Directory>
 
-		<Feature Id="ProductFeature" Title="WixProject1" Level="1">
+    <Feature Id="ProductFeature" Title="VisioMacroTabAddin" Level="1">
+      <ComponentRef Id="ProductComponent" />
       <ComponentRef Id="visioRegistration" />
-			 <ComponentRef Id="ProductComponent" /> 
-		</Feature>
+    </Feature>
 
     <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>
     <WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp"/>
-    
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
     <UIRef Id="WixUI_InstallDir" />
 

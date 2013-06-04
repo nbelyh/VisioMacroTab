@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Jun 04 01:46:57 2013
+/* at Tue Jun 04 21:03:07 2013
  */
 /* Compiler settings for .\AddIn.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
@@ -75,14 +75,14 @@ extern "C"{
 
 
 
-#ifndef __AddinLib_LIBRARY_DEFINED__
-#define __AddinLib_LIBRARY_DEFINED__
+#ifndef __VisioMacroTabAddin_LIBRARY_DEFINED__
+#define __VisioMacroTabAddin_LIBRARY_DEFINED__
 
-/* library AddinLib */
+/* library VisioMacroTabAddin */
 /* [helpstring][version][uuid] */ 
 
 
-EXTERN_C const IID LIBID_AddinLib;
+EXTERN_C const IID LIBID_VisioMacroTabAddin;
 
 #ifndef ___IScriptSiteContext_INTERFACE_DEFINED__
 #define ___IScriptSiteContext_INTERFACE_DEFINED__
@@ -435,7 +435,7 @@ EXTERN_C const CLSID CLSID_Connect;
 class DECLSPEC_UUID("D62269B9-72CD-4ae9-BD41-B803A832B6F9")
 Connect;
 #endif
-#endif /* __AddinLib_LIBRARY_DEFINED__ */
+#endif /* __VisioMacroTabAddin_LIBRARY_DEFINED__ */
 
 /* Additional Prototypes for ALL interfaces */
 

@@ -1,20 +1,20 @@
 HKCR
 {
-	CustomImagesAddin.Connect.1 = s 'Connect Class'
+	VisioMacroTabAddin.Connect.1 = s 'Connect Class'
 	{
 		CLSID = s '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}'
 	}
-	CustomImagesAddin.Connect = s 'Connect Class'
+	VisioMacroTabAddin.Connect = s 'Connect Class'
 	{
 		CLSID = s '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}'
-		CurVer = s 'CustomImagesAddin.Connect.1'
+		CurVer = s 'VisioMacroTabAddin.Connect.1'
 	}
 	NoRemove CLSID
 	{
 		ForceRemove '{D62269B9-72CD-4ae9-BD41-B803A832B6F9}' = s 'Connect Class'
 		{
-			ProgID = s 'CustomImagesAddin.Connect.1'
-			VersionIndependentProgID = s 'CustomImagesAddin.Connect'
+			ProgID = s 'VisioMacroTabAddin.Connect.1'
+			VersionIndependentProgID = s 'VisioMacroTabAddin.Connect'
 			ForceRemove 'Programmable'
 			InprocServer32 = s '%MODULE%'
 			{

@@ -15,7 +15,7 @@ _COM_SMARTPTR_TYPEDEF(IActiveScriptParse, __uuidof(IActiveScriptParse));
 class CScriptContext :
 	public CComObjectRootEx<CComSingleThreadModel>,
 	public ISupportErrorInfoImpl<&__uuidof(_IScriptSiteContext)>,
-	public IDispatchImpl<_IScriptSiteContext, &__uuidof(_IScriptSiteContext), &LIBID_AddinLib>
+	public IDispatchImpl<_IScriptSiteContext, &__uuidof(_IScriptSiteContext), &LIBID_VisioMacroTabAddin>
 {
 public:
 	BEGIN_COM_MAP(CScriptContext)
