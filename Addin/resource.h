@@ -8,6 +8,7 @@
 #define ID_SHOW_DOCKED_WINDOW           104
 #define ID_SHOW_DOCKED_WINDOW_32        105
 #define ID_SHOW_DOCKED_WINDOW_16        106
+#define IDR_HTML						107
 
 #define IDR_BUTTON1                     201
 #define IDR_BUTTON2                     202

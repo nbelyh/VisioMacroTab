@@ -41,6 +41,7 @@ END
 //
 
 IDR_RIBBON              TEXT                    "res\\Ribbon.xml"
+IDR_HTML				TEXT                    "res\\Window.html"
 IDR_RESOURCE_H          TEXT                    "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////

@@ -26,6 +26,9 @@ protected:
 	void OnDestroy();
 
 	DECLARE_MESSAGE_MAP()
+
+	LRESULT OnMsgHtmlayoutButton(WPARAM wp, LPARAM lp);
+	LRESULT OnHtmlayoutHyperlink(WPARAM wp, LPARAM lp);
 private:
 	struct Impl;
 	Impl* m_impl;

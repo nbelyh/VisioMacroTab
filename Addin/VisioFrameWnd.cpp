@@ -9,6 +9,8 @@
 #include "VisioFrameWnd.h"
 #include "lib/Visio.h"
 #include "lib/Utils.h"
+#include "lib/HTMLayoutCtrl.h"
+#include "lib/TextFile.h"
 #include "Addin.h"
 
 using namespace Visio;
@@ -23,6 +25,8 @@ BEGIN_MESSAGE_MAP(CVisioFrameWnd, CWnd)
 	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
 	ON_WM_MOUSEWHEEL()
+	ON_REGISTERED_MESSAGE(MSG_HTMLAYOUT_HYPERLINK, OnHtmlayoutHyperlink)
+	ON_REGISTERED_MESSAGE(MSG_HTMLAYOUT_BUTTON, OnMsgHtmlayoutButton)
 END_MESSAGE_MAP()
 
 
@@ -58,7 +62,30 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	void Reload()
 	{
+		CString html;
+
+//		html = 
+//			LoadTextFromModule(AfxGetResourceHandle(), IDR_HTML);
+
+		CFile f(L"D:\\Projects\\github\\VisioMacroTab\\Addin\\res\\Window.html", CFile::modeRead);
+		CTextFileRead rdr(&f);
+		rdr.Read(html);
+
+		m_html.LoadHtml(html);
+		m_html.UpdateSize();
 	}
+
+	void Run() 
+	{
+		CString text;
+		m_html.GetScriptText(text);
+
+		AfxMessageBox(text);
+
+	}
+
+
+	CHTMLayoutCtrl m_html;
 
 	Visio::IVWindowPtr	visio_window;
 	Visio::IVWindowPtr	this_window;
@@ -92,7 +119,7 @@ void CVisioFrameWnd::Create(IVWindowPtr window)
 
 	// Construct Visio window. Make this window size a half of Visio's size
 	m_impl->this_window = window->GetWindows()->Add(
-		bstr_t(L"Docking Shape Sheet"), 
+		bstr_t(L"VisioMacroTab"), 
 		static_cast<long>(visWSVisible | visWSAnchorRight | visWSAnchorTop), 
 		static_cast<long>(visAnchorBarAddon), 
 		static_cast<long>(parent_rect.Width()), 
@@ -110,8 +137,7 @@ void CVisioFrameWnd::Create(IVWindowPtr window)
 	CRect rect;
 	GetClientRect(rect);
 
-	// m_impl->m_html.Create(rect, this, 1, WS_CHILD|WS_VISIBLE);
-
+	m_impl->m_html.Create(rect, this, 1, WS_CHILD|WS_VISIBLE);
 	m_impl->Reload();
 }
 
@@ -126,7 +152,7 @@ void CVisioFrameWnd::Destroy()
 
 void CVisioFrameWnd::OnSize(UINT nType, int cx, int cy)
 {
-	// m_impl->m_html.MoveWindow(0, 0, cx, cy);
+	m_impl->m_html.MoveWindow(0, 0, cx, cy);
 }
 
 /**-----------------------------------------------------------------------------
@@ -158,4 +184,21 @@ CVisioFrameWnd::CVisioFrameWnd()
 CVisioFrameWnd::~CVisioFrameWnd()
 {
 	delete m_impl;
+}
+
+LRESULT CVisioFrameWnd::OnMsgHtmlayoutButton(WPARAM wp, LPARAM lp)
+{
+	LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
+
+	if (!StrCmp(id, L"run"))
+		m_impl->Run();
+
+	return 0;
+}
+
+LRESULT CVisioFrameWnd::OnHtmlayoutHyperlink(WPARAM wp, LPARAM lp)
+{
+	// LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
+
+	return 0;
 }

@@ -9,7 +9,7 @@
 
 #include "../Addin.h"
 
-#define ADDON_NAME	L"TwoPoints"
+#define ADDON_NAME	L"VisioMacroTab"
 
 _ATL_FUNC_INFO ClickEventInfo = { CC_STDCALL, VT_EMPTY, 2, { VT_DISPATCH, VT_BOOL|VT_BYREF } };
 

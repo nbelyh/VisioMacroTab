@@ -463,6 +463,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\lib\HTMLayoutCtrl.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\lib\HTMLayoutCtrl.h"
+			>
+		</File>
+		<File
 			RelativePath=".\lib\Language.cpp"
 			>
 		</File>
