@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{d846b752-75c8-41b3-ba0f-a635d0f3a992}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AddIn.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\AddIn.rgs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="AddIn.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="res\Ribbon.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AddIn.cpp" />
+    <ClCompile Include="Connect.cpp" />
+    <ClCompile Include="lib\HTMLayoutCtrl.cpp" />
+    <ClCompile Include="lib\Language.cpp" />
+    <ClCompile Include="lib\PictureConvert.cpp" />
+    <ClCompile Include="Scripts.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="lib\TextFile.cpp" />
+    <ClCompile Include="lib\UI.cpp" />
+    <ClCompile Include="lib\Utils.cpp" />
+    <ClCompile Include="lib\Visio.cpp" />
+    <ClCompile Include="VisioFrameWnd.cpp" />
+    <ClCompile Include="lib\VisualStylesXP.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Addin.h" />
+    <ClInclude Include="Connect.h" />
+    <ClInclude Include="lib\HTMLayoutCtrl.h" />
+    <ClInclude Include="lib\Language.h" />
+    <ClInclude Include="lib\PictureConvert.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scripts.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="lib\TextFile.h" />
+    <ClInclude Include="lib\UI.h" />
+    <ClInclude Include="lib\Utils.h" />
+    <ClInclude Include="lib\Visio.h" />
+    <ClInclude Include="VisioFrameWnd.h" />
+    <ClInclude Include="lib\VisualStylesXP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="AddIn.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\button1.png" />
+    <Image Include="res\button2.png" />
+    <Image Include="res\button3.png" />
+    <Image Include="res\button4.png" />
+    <Image Include="res\button5.png" />
+    <Image Include="res\window.png" />
+  </ItemGroup>
+</Project>

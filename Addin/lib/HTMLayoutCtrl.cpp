@@ -8,9 +8,8 @@
 
 #pragma warning(push)
 #pragma warning(disable:4996)	/// secure deprecation, ISO C++ conforming swprintf
-#include <behaviors/behavior_popup.cpp>
+#include <htmlayout.h>
 #pragma warning(pop)
-
 
 /**-----------------------------------------------------------------------------
 	Message to send to parent frame on hyperlink clicks

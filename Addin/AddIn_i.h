@@ -4,9 +4,9 @@
 
 
  /* File created by MIDL compiler version 7.00.0555 */
-/* at Tue Jun 04 21:56:36 2013
+/* at Wed Jun 05 00:24:30 2013
  */
-/* Compiler settings for .\AddIn.idl:
+/* Compiler settings for AddIn.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
