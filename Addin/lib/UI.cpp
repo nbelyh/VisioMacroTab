@@ -86,7 +86,7 @@ void AddinUi::InstallButtons(Office::CommandBarControlsPtr menu_items, CMenu* po
 {
 	// For each items in the menu,
 
-	for (UINT i = 0; i < popup_menu->GetMenuItemCount(); ++i)
+	for (int i = 0; i < popup_menu->GetMenuItemCount(); ++i)
 	{
 		CMenu* sub_menu = popup_menu->GetSubMenu(i);
 

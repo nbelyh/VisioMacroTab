@@ -11,6 +11,8 @@
 #include <htmlayout.h>
 #pragma warning(pop)
 
+#include "ScintillaCtrl.h"
+
 /**-----------------------------------------------------------------------------
 	Message to send to parent frame on hyperlink clicks
 ------------------------------------------------------------------------------*/
@@ -19,6 +21,15 @@ const UINT MSG_HTMLAYOUT_HYPERLINK = RegisterWindowMessage(L"P4B_MSG_HTMLAYOUT_H
 const UINT MSG_HTMLAYOUT_BUTTON = RegisterWindowMessage(L"P4B_MSG_HTMLAYOUT_BUTTON");
 
 // CHTMLayoutCtrl
+
+const TCHAR keywords[] = 
+	L"and call dim case error elseif else end erase exit each "
+	L"eqv for function in if is imp like let mod nothing next "
+	L"not on or preserve private public redim resume set step "
+	L"sub select then to until xor with wend while ";
+
+const TCHAR keywords1[] = 
+	L"activeshape activepage activedocument application ";
 
 struct CHTMLayoutCtrl::Impl
 {
@@ -115,14 +126,14 @@ struct CHTMLayoutCtrl::Impl
 		Attach your own behavior to the element
 	------------------------------------------------------------------------------*/
 
-	CEdit* m_edit;
+	CScintillaCtrl* m_edit;
 
 	LRESULT OnDestroyControl(  LPNMHL_DESTROY_CONTROL lpdc)
 	{
  		CWnd* wnd = CWnd::FromHandlePermanent(lpdc->inoutControlHwnd);
  		if (wnd)
  		{
- 			CEdit* edit = DYNAMIC_DOWNCAST(CEdit, wnd);
+ 			CScintillaCtrl* edit = DYNAMIC_DOWNCAST(CScintillaCtrl, wnd);
  			ASSERT(edit == m_edit);
 
 			m_edit->DestroyWindow();
@@ -132,6 +143,16 @@ struct CHTMLayoutCtrl::Impl
 		return 0;
 	}
 
+	void SetAStyle(int style, COLORREF fore, COLORREF back=RGB(0xff, 0xff, 0xff), int size=-1, const char *face=0)
+	{
+		m_edit->StyleSetFore(style, fore);
+		m_edit->StyleSetBack(style, back);
+		if (size >= 1)
+			m_edit->StyleSetSize(style, size);
+		if (face) 
+			m_edit->StyleSetFont(style, face);
+	}
+
 	LRESULT OnCreateControl( LPNMHL_CREATE_CONTROL lpcc )
 	{
 		htmlayout::dom::element el(lpcc->helement);
@@ -139,12 +160,42 @@ struct CHTMLayoutCtrl::Impl
 		const wchar_t* type = el.get_attribute("type");
 		if (type != NULL && !lstrcmp(type, L"script"))
  		{
-			m_edit = new CEdit();
+			m_edit = new CScintillaCtrl();
 
-			CRect rc(0,0,0,0);
-			m_edit->Create(WS_CHILD|WS_BORDER|ES_MULTILINE, rc, CWnd::FromHandle(lpcc->inHwndParent), 1);
+			CRect rc(0,100,0,100);
+			m_edit->Create(WS_CHILD|WS_BORDER, rc, CWnd::FromHandle(lpcc->inHwndParent), 1);
 
-			lpcc->outControlHwnd = *m_edit;
+			m_edit->SetLexer(SCLEX_VBSCRIPT);
+
+			m_edit->SetKeyWords(0, keywords);
+			m_edit->SetKeyWords(1, keywords1);
+
+		  SetAStyle(STYLE_DEFAULT, RGB(0, 0, 0), RGB(0xff, 0xff, 0xff), 11, "consolas");
+		  m_edit->StyleClearAll();
+
+		  SetAStyle(SCE_B_DEFAULT, RGB(0, 0, 0));
+		  SetAStyle(SCE_B_COMMENT, RGB(0, 0x80, 0));
+		  SetAStyle(SCE_B_STRINGEOL, RGB(0, 0x80, 0));
+		  
+		  SetAStyle(SCE_B_NUMBER, RGB(0, 0x80, 0x80));
+		  SetAStyle(SCE_B_DATE, RGB(0, 0x80, 0x80));
+
+		  SetAStyle(SCE_B_KEYWORD, RGB(0, 0, 0x80));
+		  m_edit->StyleSetBold(SCE_B_KEYWORD, 1);
+
+		  SetAStyle(SCE_B_KEYWORD2, RGB(0x80, 0, 0x80));
+		  m_edit->StyleSetBold(SCE_B_KEYWORD2, 1);
+
+		  SetAStyle(SCE_B_STRING, RGB(0x80, 0, 0x80));
+		  SetAStyle(SCE_B_IDENTIFIER, RGB(0, 0, 0));
+		  SetAStyle(SCE_B_PREPROCESSOR, RGB(0x80, 0, 0));
+		  SetAStyle(SCE_B_OPERATOR, RGB(0x80, 0x80, 0));
+
+		  m_edit->SetTabWidth(4);
+		  m_edit->SetScrollWidth(100);
+		  m_edit->SetScrollWidthTracking(TRUE);
+
+		  lpcc->outControlHwnd = *m_edit;
 
 // 			const wchar_t* name = el.get_attribute("name");
 // 			const wchar_t* id = el.get_attribute("id");
@@ -374,7 +425,7 @@ void CHTMLayoutCtrl::UpdateSize()
 	HTMLayoutUpdateElementEx(rt, MEASURE_INPLACE);
 }
 
-void CHTMLayoutCtrl::GetScriptText(CString& result) const
+CString CHTMLayoutCtrl::GetScriptText() const
 {
-	return m_impl->m_edit->GetWindowText(result);
+	return m_impl->m_edit->GetText(50000);
 }

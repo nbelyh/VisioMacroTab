@@ -28,7 +28,7 @@ public:
 	void SetElementEnabled (const char* id, bool set);
 	void SetElementValueLong(const char* id, long v);
 
-	void GetScriptText(CString& result) const;
+	CString GetScriptText() const;
 
 protected:
 	virtual BOOL PreTranslateMessage( MSG* pMsg );

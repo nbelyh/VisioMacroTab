@@ -8,25 +8,29 @@
 #define STRICT
 #endif
 
-#ifndef _WIN32_WINNT		// Allow use of features specific to Windows NT 4 or later.
-#define _WIN32_WINNT 0x0600	// Change this to the appropriate value to target Windows 2000 or later.
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
 #endif						
 
 #ifndef _WIN32_IE			// Allow use of features specific to IE 4.0 or later.
-#define _WIN32_IE 0x0600	// Change this to the appropriate value to target IE 5.0 or later.
+#define _WIN32_IE 0x0700	// Change this to the appropriate value to target IE 5.0 or later.
 #endif
 
 #define _ATL_APARTMENT_THREADED
 #define _ATL_NO_AUTOMATIC_NAMESPACE
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS	// some CString constructors will be explicit
 #define _ATL_ALL_WARNINGS
-#define ISOLATION_AWARE_ENABLED	1
+#define ISOLATION_AWARE_ENABLED		1
 
 #include "resource.h"
 
 #include <afxwin.h>
+#include <commctrl.h>
 #include <atlbase.h>
 #include <atlcom.h>
+
+#include <Scintilla.h>
+#include <SciLexer.h>
 
 #include "import\MSADDNDR.tlh"
 #include "import\MSO.tlh"

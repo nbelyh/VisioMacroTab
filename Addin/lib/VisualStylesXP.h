@@ -4,7 +4,6 @@
 #pragma once
 
 #include <uxtheme.h>
-#include <tmschema.h>
 
 class CVisualStylesXP
 {

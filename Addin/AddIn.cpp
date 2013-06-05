@@ -77,26 +77,6 @@ STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 BEGIN_OBJECT_MAP(ObjectMap)
 END_OBJECT_MAP()
 
-BOOL CAddinApp::InitInstance()
-{
-	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-
-	// Initialize COM stuff
-	if (FAILED(_Module.Init(ObjectMap, AfxGetInstanceHandle(), &LIBID_VisioMacroTabAddin)))
-		return FALSE;
-
-	return TRUE;
-}
-
-int CAddinApp::ExitInstance() 
-{
-	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-
-	_Module.Term();
-
-	return CWinApp::ExitInstance();
-}
-
 struct CAddinApp::Impl
 {
 	Impl()
@@ -105,6 +85,8 @@ struct CAddinApp::Impl
 		command = 0;
 		need_update = true;
 	}
+
+	HMODULE scintilla;
 
 	CSimpleMap<HWND, CVisioFrameWnd*> shown_windows;
 	Visio::IVApplicationPtr app;
@@ -363,4 +345,33 @@ UINT CAddinApp::GetImageId( UINT cmd_id ) const
 	default:
 		return -1;
 	}
+}
+
+BOOL CAddinApp::InitInstance()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+	WCHAR path[MAX_PATH] = L"";
+	GetModuleFileName(AfxGetInstanceHandle(), path, MAX_PATH);
+	PathRemoveFileSpec(path);
+	PathAppend(path, L"SciLexer.dll");
+
+	m_impl->scintilla = LoadLibrary(path);
+
+	// Initialize COM stuff
+	if (FAILED(_Module.Init(ObjectMap, AfxGetInstanceHandle(), &LIBID_VisioMacroTabAddin)))
+		return FALSE;
+
+	return TRUE;
+}
+
+int CAddinApp::ExitInstance() 
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
+	_Module.Term();
+
+	FreeLibrary(m_impl->scintilla);
+
+	return CWinApp::ExitInstance();
 }

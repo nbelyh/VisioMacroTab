@@ -12,6 +12,7 @@
 #include "lib/HTMLayoutCtrl.h"
 #include "lib/TextFile.h"
 #include "Addin.h"
+#include "Scripts.h"
 
 using namespace Visio;
 
@@ -77,13 +78,10 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	void Run() 
 	{
-		CString text;
-		m_html.GetScriptText(text);
+		CString text = m_html.GetScriptText();
 
-		AfxMessageBox(text);
-
+		RunScript(text, theApp.GetVisioApp(), NULL);
 	}
-
 
 	CHTMLayoutCtrl m_html;
 
@@ -188,6 +186,8 @@ CVisioFrameWnd::~CVisioFrameWnd()
 
 LRESULT CVisioFrameWnd::OnMsgHtmlayoutButton(WPARAM wp, LPARAM lp)
 {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
 	LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
 
 	if (!StrCmp(id, L"run"))
@@ -198,6 +198,8 @@ LRESULT CVisioFrameWnd::OnMsgHtmlayoutButton(WPARAM wp, LPARAM lp)
 
 LRESULT CVisioFrameWnd::OnHtmlayoutHyperlink(WPARAM wp, LPARAM lp)
 {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+
 	// LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
 
 	return 0;

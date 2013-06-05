@@ -5,6 +5,9 @@
       <UniqueIdentifier>{d846b752-75c8-41b3-ba0f-a635d0f3a992}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{0e0e0ad3-2675-4d76-b650-413239fa6467}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AddIn.rc">
@@ -25,43 +28,90 @@
   <ItemGroup>
     <ClCompile Include="AddIn.cpp" />
     <ClCompile Include="Connect.cpp" />
-    <ClCompile Include="lib\HTMLayoutCtrl.cpp" />
-    <ClCompile Include="lib\Language.cpp" />
-    <ClCompile Include="lib\PictureConvert.cpp" />
     <ClCompile Include="Scripts.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="lib\TextFile.cpp" />
-    <ClCompile Include="lib\UI.cpp" />
-    <ClCompile Include="lib\Utils.cpp" />
-    <ClCompile Include="lib\Visio.cpp" />
     <ClCompile Include="VisioFrameWnd.cpp" />
-    <ClCompile Include="lib\VisualStylesXP.cpp" />
+    <ClCompile Include="lib\HTMLayoutCtrl.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Language.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\PictureConvert.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\UI.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Utils.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\Visio.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\VisualStylesXP.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\TextFile.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\ScintillaCtrl.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Addin.h" />
     <ClInclude Include="Connect.h" />
-    <ClInclude Include="lib\HTMLayoutCtrl.h" />
-    <ClInclude Include="lib\Language.h" />
-    <ClInclude Include="lib\PictureConvert.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scripts.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="lib\TextFile.h" />
-    <ClInclude Include="lib\UI.h" />
-    <ClInclude Include="lib\Utils.h" />
-    <ClInclude Include="lib\Visio.h" />
     <ClInclude Include="VisioFrameWnd.h" />
-    <ClInclude Include="lib\VisualStylesXP.h" />
+    <ClInclude Include="lib\HTMLayoutCtrl.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Language.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\PictureConvert.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\UI.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Utils.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\Visio.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\VisualStylesXP.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\TextFile.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ScintillaCtrl.h">
+      <Filter>lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="AddIn.idl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\button1.png" />
-    <Image Include="res\button2.png" />
-    <Image Include="res\button3.png" />
-    <Image Include="res\button4.png" />
-    <Image Include="res\button5.png" />
-    <Image Include="res\window.png" />
+    <Image Include="res\button1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\button2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\button3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\button4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\button5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
