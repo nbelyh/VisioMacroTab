@@ -22,7 +22,6 @@ public:
 protected:
 	BOOL OnEraseBkgnd(CDC* pDC);
 	void OnSize(UINT nType, int cx, int cy);
-	BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void OnDestroy();
 
 	DECLARE_MESSAGE_MAP()

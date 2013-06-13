@@ -42,7 +42,7 @@ static inline bool IsTypeCharacter(int ch) {
 // Extended to accept accented characters
 static inline bool IsAWordChar(int ch) {
 	return ch >= 0x80 ||
-	       (isalnum(ch) || ch == '.' || ch == '_');
+	       (isalnum(ch) || ch == '_');
 }
 
 static inline bool IsAWordStart(int ch) {

@@ -1,18 +1,101 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-	<head>
-	<style>
-	    widget {
-	    position: absolute;
-	    top: 40;
-	    left: 10;
-	    right: 10;
-	    bottom: 10;
-	    }
-	</style>
-	</head>
-	<body>
+<head>
+  <style>
+    body
+    {
+	border: 0;
+	margin: 0;
+    }
+
+    @const item: #007;
+    .thelist 
+	{
+		left: 0;
+		margin: 0;
+	}
+
+	.thelist > option
+  	{
+		margin: 4px;
+		background-color: tint(@item, +0.97);
+		border-radius: 4px;
+		padding: 4px;
+	}
+	.thelist > option:hover
+  	{
+		color: #000;
+		background-color: tint(@item, +0.80);
+	}
+	.thelist > option:checked
+	{
+		color: #000;
+		background-color: tint(@item, +0.90);
+	}
+	.thelist > option > table 
+	{
+		width: 100%;
+	}
+
+	.caption 
+	{
+		font-weight: bold;
+	}
+	.details
+	{
+		font-size: smaller;
+	}
+
+	splitter {
+		background-color: buttonface;
+	}
+	splitter:hover {
+		background-color: #CCC;
+	}
+	.iconlist {
+		text-align: right;
+	}
+	img:hover {
+		foreground-image-transformation: contrast-brightness-gamma(0.5,0,0.5,1.2);
+	}
+
+  </style>  
+  <script type="text/tiscript"></script>  
+</head>
+<body>
+  <frameset rows="50px,100px,*">
+	<!-- input id="run" type="button" value="Run" / -->
+		<div>
+		<a href="#">
+			<img src="D:\Projects\github\VisioMacroTab\Addin\res\add.png" />
+		</a>
+		</div>
+		<widget type="select" class="thelist">
+			<option>
+				<table>
+				<tr><td class="caption">Skew Shape Foo</td>
+				<td class="iconlist" rowspan="2">
+					<img src="D:\Projects\github\VisioMacroTab\Addin\res\execute.png" />
+					<img src="D:\Projects\github\VisioMacroTab\Addin\res\save.png" />
+					<img src="D:\Projects\github\VisioMacroTab\Addin\res\delete.png" />
+				</td>
+				</tr>
+				<tr><td class="details">Some long description of the macro</td></tr>
+				</table>
+			</option>
+			<option>
+				<div class="caption">Skew Shape Foo</div>
+				<div class="details">Some long description of the macro</div>
+			</option>
+			<option>
+				<div class="caption">Skew Shape Foo</div>
+				<div class="details">Some long description of the macro</div>
+			</option>
+		</widget>
+	
+    <splitter>
+      <widget.button />
+    </splitter>
 	<widget type="script" />
-	<input id="run" type="button" value="Run" />
-	</body>
+  </frameset>
+</body>
 </html>

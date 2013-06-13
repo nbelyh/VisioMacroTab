@@ -25,7 +25,6 @@ BEGIN_MESSAGE_MAP(CVisioFrameWnd, CWnd)
 	ON_WM_DESTROY()
 	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
-	ON_WM_MOUSEWHEEL()
 	ON_REGISTERED_MESSAGE(MSG_HTMLAYOUT_HYPERLINK, OnHtmlayoutHyperlink)
 	ON_REGISTERED_MESSAGE(MSG_HTMLAYOUT_BUTTON, OnMsgHtmlayoutButton)
 END_MESSAGE_MAP()
@@ -90,11 +89,6 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	CVisioEvent	evt_sel_changed;
 };
-
-BOOL CVisioFrameWnd::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
-{
-	return FALSE;
-}
 
 /**------------------------------------------------------------------------------
 	Creates and initializes a new Visio (top-level) window, and subclasses the 
