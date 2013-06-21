@@ -3,7 +3,6 @@
 #pragma once
 
 using namespace Office;
-using namespace AddInDesignerObjects;
 
 // CConnect
 class ATL_NO_VTABLE CConnect : 

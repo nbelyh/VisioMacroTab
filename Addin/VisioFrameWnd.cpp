@@ -67,7 +67,7 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 //		html = 
 //			LoadTextFromModule(AfxGetResourceHandle(), IDR_HTML);
 
-		CFile f(L"D:\\Projects\\github\\VisioMacroTab\\Addin\\res\\Window.html", CFile::modeRead);
+		CFile f(L"C:\\Users\\Nikolay\\Documents\\GitHub\\VisioMacroTab\\Addin\\res\\Window.html", CFile::modeRead);
 		CTextFileRead rdr(&f);
 		rdr.Read(html);
 

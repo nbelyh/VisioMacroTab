@@ -76,32 +76,32 @@
     <IntDir>x86\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\HTMLayoutSDK\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Projects\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Projects\Libs\HTMLayoutSDK\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)x64\$(Configuration)\</OutDir>
     <IntDir>x64\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\HTMLayoutSDK\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Projects\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Projects\Libs\HTMLayoutSDK\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)x86\$(Configuration)\</OutDir>
     <IntDir>x86\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\HTMLayoutSDK\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Projects\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Projects\Libs\HTMLayoutSDK\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)x64\$(Configuration)\</OutDir>
     <IntDir>x64\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Libs\HTMLayoutSDK\lib64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Projects\Libs\HTMLayoutSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Projects\Libs\HTMLayoutSDK\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
