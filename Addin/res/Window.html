@@ -3,62 +3,55 @@
   <style>
     body
     {
-	border: 0;
-	margin: 0;
+		border: 0;
+		margin: 0;
     }
 
-    .thelist 
+    #snippetlist
 	{
-		left: 0;
-		top: 0;
+		behavior:grid;
 		width: 100%;
 		height: 100%%;
-		margin: 0;
+		overflow-y: auto;
 	}
 
-	.thelist > option
+	#snippetlist tr
   	{
-		background-color: #FFF;
 		padding: 4px;
-		white-space: normal;
+		background-color: #FFF;
 	}
-	.thelist > option:hover
+	#snippetlist tr:hover
   	{
-		color: #000;
 		background-color: #DDD;
 	}
-	.thelist > option:checked
+	#snippetlist tr:current
 	{
-		color: #000;
-		background-color: #BBB;
-	}
-
-	splitter {
-		background-color: #CCC;
-	}
-	splitter:hover {
 		background-color: #CCC;
 	}
 
-	.thelist > option img {
+	#snippetlist img {
 		float: left;
 	}
-	.thelist > option h3
+
+	#snippetlist p
 	{
-		margin-top: 0;
-		margin-bottom: 0;
+		margin: 4pt;
 		margin-left: 40px;
-	}
-	.thelist > option p
-	{
-		margin-top: 0;
-		margin-bottom: 0;
-		margin-left: 40px;
+		color: #777;
+		font-size: 10pt;
+		font-weight: normal;
 	}
 
+	#snippetlist span.caption
+	{
+		margin-top: 5pt;
+		font-weight: bold;
+		font-size: ;
+	}
+	
 	div.tbbutton {
-		width: 24px;
-		height: 24px;
+		width: 32px;
+		height: 32px;
 		margin-top: 5px;
 		margin-left: 5px;
 		margin-bottom: 3px;
@@ -78,38 +71,44 @@
 		  foreground-image: url(C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\play-26.png);
 	}
 
+	splitter {
+		background-color: #CCC;
+	}
+	splitter:hover {
+		background-color: #CCC;
+	}
+
   </style>  
-  <script type="text/tiscript"></script>  
 </head>
 <body>
-  <frameset rows="100px,*">
+  <frameset rows="200,*">
 	<!-- input id="run" type="button" value="Run" / -->
-	<div>
-		<widget type="select" class="thelist">
-			<option>
+	<div id="top">
+		<table id="snippetlist">
+			<tr><td><div>
 				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button1.png" />
-				<h3>Skew Shape Foo</h3>
+				<span class="caption">Skew Shape Foo</span>
 				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</option>
-			<option>
-				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button1.png" />
-				<h3>Skew Shape Foo</h3>
+			</div></td></tr>
+			<tr><td><div>
+				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button2.png" />
+				<span class="caption">Skew Shape Foo</span>
 				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</option>
-			<option>
-				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button1.png" />
-				<h3>Skew Shape Foo</h3>
+			</div></td></tr>
+			<tr><td><div>
+				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button3.png" />
+				<span class="caption">Skew Shape Foo</span>
 				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</option>
-		</widget>
+			</div></td></tr>
+		</table>
 	    <div style="flow:horizontal">
 		  <div class="tbbutton" id="new" />
 		  <div class="tbbutton" id="save" />
 		  <div class="tbbutton" id="play" />
 	    </div>
-	  </div>
-    <splitter />
-	<widget type="script" />
+	</div>
+	<splitter />
+	<div >HELLO</div> <!-- widget type="script" / -->
   </frameset>
 </body>
 </html>
