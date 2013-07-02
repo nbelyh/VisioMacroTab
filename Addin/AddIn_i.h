@@ -3,18 +3,18 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 7.00.0500 */
-/* at Fri Jun 21 15:49:41 2013
+ /* File created by MIDL compiler version 7.00.0555 */
+/* at Mon Jul 01 22:43:28 2013
  */
 /* Compiler settings for AddIn.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
+    Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 7.00.0555 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
          DECLSPEC_UUID(), MIDL_INTERFACE()
 */
-//@@MIDL_FILE_HEADING(  )
+/* @@MIDL_FILE_HEADING(  ) */
 
 #pragma warning( disable: 4049 )  /* more than 64k source lines */
 
@@ -108,6 +108,9 @@ EXTERN_C const IID IID__IScriptSiteContext;
         virtual /* [propget][id] */ HRESULT STDMETHODCALLTYPE get_ActivePage( 
             /* [retval][out] */ IDispatch **pResult) = 0;
         
+        virtual /* [propget][id] */ HRESULT STDMETHODCALLTYPE get_ActiveShape( 
+            /* [retval][out] */ IDispatch **pResult) = 0;
+        
     };
     
 #else 	/* C style interface */
@@ -119,7 +122,7 @@ EXTERN_C const IID IID__IScriptSiteContext;
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
             _IScriptSiteContext * This,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ 
+            /* [annotation][iid_is][out] */ 
             __RPC__deref_out  void **ppvObject);
         
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
@@ -169,6 +172,10 @@ EXTERN_C const IID IID__IScriptSiteContext;
             _IScriptSiteContext * This,
             /* [retval][out] */ IDispatch **pResult);
         
+        /* [propget][id] */ HRESULT ( STDMETHODCALLTYPE *get_ActiveShape )( 
+            _IScriptSiteContext * This,
+            /* [retval][out] */ IDispatch **pResult);
+        
         END_INTERFACE
     } _IScriptSiteContextVtbl;
 
@@ -213,6 +220,9 @@ EXTERN_C const IID IID__IScriptSiteContext;
 
 #define _IScriptSiteContext_get_ActivePage(This,pResult)	\
     ( (This)->lpVtbl -> get_ActivePage(This,pResult) ) 
+
+#define _IScriptSiteContext_get_ActiveShape(This,pResult)	\
+    ( (This)->lpVtbl -> get_ActiveShape(This,pResult) ) 
 
 #endif /* COBJMACROS */
 
@@ -281,7 +291,7 @@ EXTERN_C const IID IID_ICallbackInterface;
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
             ICallbackInterface * This,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ 
+            /* [annotation][iid_is][out] */ 
             __RPC__deref_out  void **ppvObject);
         
         ULONG ( STDMETHODCALLTYPE *AddRef )( 

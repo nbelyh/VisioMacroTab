@@ -1,114 +1,130 @@
 <html>
 <head>
-  <style>
-    body
-    {
-		border: 0;
-		margin: 0;
-    }
+    <style>
+        body {
+            margin: 0;
+        }
 
-    #snippetlist
-	{
-		behavior:grid;
-		width: 100%;
-		height: 100%%;
-		overflow-y: auto;
-	}
+        #snippetlist {
+            behavior: expandable-list;
+            width: 100%%;
+            height: 100%%;
+            overflow-y: auto;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-	#snippetlist tr
-  	{
-		padding: 4px;
-		background-color: #FFF;
-	}
-	#snippetlist tr:hover
-  	{
-		background-color: #DDD;
-	}
-	#snippetlist tr:current
-	{
-		background-color: #CCC;
-	}
+            #snippetlist > li {
+                transition: slide;
+                border-bottom:1px solid #bbb;
+            }
 
-	#snippetlist img {
-		float: left;
-	}
+                #snippetlist > li > .caption {
+                    padding: 5px;
+                }
 
-	#snippetlist p
-	{
-		margin: 4pt;
-		margin-left: 40px;
-		color: #777;
-		font-size: 10pt;
-		font-weight: normal;
-	}
+                    #snippetlist > li > .caption:hover {
+                        background-color: #ddd;
+                    }
 
-	#snippetlist span.caption
-	{
-		margin-top: 5pt;
-		font-weight: bold;
-		font-size: ;
-	}
-	
-	div.tbbutton {
-		width: 32px;
-		height: 32px;
-		margin-top: 5px;
-		margin-left: 5px;
-		margin-bottom: 3px;
-	}
-	div.tbbutton:hover {
-        foreground-image-transformation: contrast-brightness-gamma(0.5, .7, .8);
-        /* outline:3px glow yellow 3px; */
-        /* transition:blend; */
-	}
-	div.tbbutton#new {
-		  foreground-image:url(C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\plus-26.png);
-	}
-	div.tbbutton#save {
-		  foreground-image:url(C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\save-26.png);
-	}
-	div.tbbutton#play {
-		  foreground-image: url(C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\play-26.png);
-	}
+                #snippetlist > li:expanded {
+                    background-color: #eee;
+                }
 
-	splitter {
-		background-color: #CCC;
-	}
-	splitter:hover {
-		background-color: #CCC;
-	}
+            #snippetlist > img {
+                float: left;
+            }
 
-  </style>  
+            #snippetlist > li > .details {
+                font-size: 70%;
+                padding: 5px;
+                display: none;
+            }
+
+            #snippetlist > li:expanded > .details {
+                display: block;
+            }
+
+        div.tbbutton {
+            width: 32px;
+            height: 32px;
+            margin-top: 5px;
+            margin-left: 5px;
+            margin-bottom: 3px;
+        }
+
+            div.tbbutton:hover {
+                foreground-image-transformation: contrast-brightness-gamma(0.5, .7, .8);
+                /* outline:3px glow yellow 3px; */
+                /* transition:blend; */
+            }
+
+            div.tbbutton#new {
+                foreground-image: url(plus-26.png);
+            }
+
+            div.tbbutton#save {
+                foreground-image: url(save-26.png);
+            }
+
+            div.tbbutton#play {
+                foreground-image: url(play-26.png);
+            }
+
+        splitter {
+            background-color: #CCC;
+        }
+
+            splitter:hover {
+                background-color: #CCC;
+            }
+
+        #nav {
+            padding: 5px;
+            border-bottom: 1px solid #bbb;
+            text-align: right;
+        }
+
+        #toolbar {
+            background-color: #eee;
+            border-top: 1px solid #bbb;
+        }
+    </style>
 </head>
 <body>
-  <frameset rows="200,*">
-	<!-- input id="run" type="button" value="Run" / -->
+    <frameset rows="0,200,*">
+	<div id="nav">
+        <a href="#">Online</a>
+        <a href="#">My</a>
+		<input id="search" type="text" />
+    </div>
 	<div id="top">
-		<table id="snippetlist">
-			<tr><td><div>
-				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button1.png" />
-				<span class="caption">Skew Shape Foo</span>
-				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</div></td></tr>
-			<tr><td><div>
-				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button2.png" />
-				<span class="caption">Skew Shape Foo</span>
-				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</div></td></tr>
-			<tr><td><div>
-				<img src ="C:\Users\Nikolay\Documents\GitHub\VisioMacroTab\Addin\res\button3.png" />
-				<span class="caption">Skew Shape Foo</span>
-				<p>ipsum dolor sit amet, consectetur adipiscing elit. Ut dui dui, imperdiet quis turpis id, volutpat pulvinar erat. Praesent ligula diam, molestie tincidunt fermentum in, sodales non justo. Suspendisse aliquet augue libero, id ultricies massa imperdiet at. Nam eget purus lacus. Aliquam iaculis laoreet arcu vel ornare. Suspendisse aliquet at sem eget ultricies. Aliquam vulputate, neque vitae porta tincidunt, est arcu congue ante, sed imperdiet nunc mauris eget nisl. Praesent mattis</p>
-			</div></td></tr>
-		</table>
-	    <div style="flow:horizontal">
+		<ul id="snippetlist">
+			<li default><div class="caption"><strong>Pink Floyd</strong>: Dark Side o the Moon</div>
+				<div class="details">
+				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+				</div>
+			</li>
+			<li><div class="caption"><strong>Pink Floyd</strong>: Delicate Sounds of Thunder</div>
+				<div class="details">
+				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+				</div>
+			</li>
+			<li><div class="caption"><strong>Pink Floyd</strong>: The Final Cut</div>
+				<div class="details">
+				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+				</div>
+			</li>
+		</ul>
+	    <div id="toolbar" style="flow:horizontal">
 		  <div class="tbbutton" id="new" />
 		  <div class="tbbutton" id="save" />
 		  <div class="tbbutton" id="play" />
 	    </div>
 	</div>
 	<splitter />
-	<div >HELLO</div> <!-- widget type="script" / -->
+	<widget type="script" />
   </frameset>
 </body>
 </html>

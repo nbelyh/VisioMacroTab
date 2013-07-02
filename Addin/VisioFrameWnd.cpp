@@ -62,16 +62,7 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	void Reload()
 	{
-		CString html;
-
-//		html = 
-//			LoadTextFromModule(AfxGetResourceHandle(), IDR_HTML);
-
-		CFile f(L"C:\\Users\\Nikolay\\Documents\\GitHub\\VisioMacroTab\\Addin\\res\\Window.html", CFile::modeRead);
-		CTextFileRead rdr(&f);
-		rdr.Read(html);
-
-		m_html.LoadHtml(html);
+		m_html.LoadHtmlFile(L"D:\\Projects\\github\\VisioMacroTab\\Addin\\res\\Window.html");
 		m_html.UpdateSize();
 	}
 

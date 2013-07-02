@@ -37,6 +37,9 @@ library VisioMacroTabAddin
 
 		[id(3), propget]
 		HRESULT ActivePage([out, retval] IDispatch* *pResult);
+
+		[id(4), propget]
+		HRESULT ActiveShape([out, retval] IDispatch* *pResult);
 	};
 
 	[

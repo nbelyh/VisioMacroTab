@@ -24,49 +24,72 @@ public:
 		COM_INTERFACE_ENTRY(ISupportErrorInfo)
 	END_COM_MAP()
 
-	CComDispatchDriver m_application;
-	void SetApplication(IDispatchPtr app)
+	IDispatchPtr m_application;
+	void SetApplication(IDispatchPtr pVal)
 	{
-		m_application = app;
+		m_application = pVal;
 	}
+
 	STDMETHOD(get_Application)(IDispatch **pVal)
 	{
 		if (m_application == NULL)
 		{
 			*pVal = NULL;
-			return S_OK;
+			return S_FALSE;
 		}
 
 		return m_application->QueryInterface(IID_IDispatch, (void**)pVal);
 	}
 
-	HRESULT GetApplicationProperty(LPCWSTR name, IDispatch* *pResult)
+	IDispatchPtr m_active_page;
+	void SetActivePage(IDispatchPtr pVal)
 	{
-		if (m_application == NULL)
+		m_active_page = pVal;
+	}
+
+	STDMETHOD(get_ActivePage)(IDispatch* *pVal)
+	{
+		if (m_active_page == NULL)
 		{
-			*pResult = NULL;
-			return S_OK;
+			*pVal = NULL;
+			return S_FALSE;
 		}
 
-		variant_t v;
-		HRESULT hr = m_application.GetPropertyByName(name, &v);
-		if (FAILED(hr))
-			return hr;
-
-		if (V_VT(&v) == VT_DISPATCH || V_VT(&v) == VT_UNKNOWN)
-			return V_UNKNOWN(&v)->QueryInterface(IID_IDispatch, (void**)pResult);
-		else
-			return E_INVALIDARG;
+		return m_active_page->QueryInterface(IID_IDispatch, (void**)pVal);
 	}
 
-	STDMETHOD(get_ActivePage)(IDispatch* *pResult)
+	IDispatchPtr m_active_document;
+	void SetActiveDocument(IDispatchPtr pVal)
 	{
-		return GetApplicationProperty(L"ActivePage", pResult);
+		m_active_document = pVal;
 	}
 
-	STDMETHOD(get_ActiveDocument)(IDispatch* *pResult)
+	STDMETHOD(get_ActiveDocument)(IDispatch* *pVal)
 	{
-		return GetApplicationProperty(L"ActiveDocument", pResult);
+		if (m_active_document == NULL)
+		{
+			*pVal = NULL;
+			return S_FALSE;
+		}
+
+		return m_active_document->QueryInterface(IID_IDispatch, (void**)pVal);
+	}
+
+	IDispatchPtr m_active_shape;
+	void SetActiveShape(IDispatchPtr pVal)
+	{
+		m_active_shape = pVal;
+
+	}
+	STDMETHOD(get_ActiveShape)(IDispatch* *pVal)
+	{
+		if (m_active_shape == NULL)
+		{
+			*pVal = NULL;
+			return S_FALSE;
+		}
+
+		return m_active_shape->QueryInterface(IID_IDispatch, (void**)pVal);
 	}
 };
 

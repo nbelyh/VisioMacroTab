@@ -9,7 +9,7 @@
 #pragma warning(push)
 #pragma warning(disable:4996)	/// secure deprecation, ISO C++ conforming swprintf
 #include <htmlayout.h>
-#include <behaviors/behavior_grid.cpp>
+#include <behaviors/behavior_expandable_list.cpp>
 #pragma warning(pop)
 
 #include "ScintillaCtrl.h"
