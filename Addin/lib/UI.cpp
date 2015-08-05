@@ -96,7 +96,7 @@ void AddinUi::InstallButtons(Office::CommandBarControlsPtr menu_items, CMenu* po
 
 		// create new menu item.
 		Office::CommandBarControlPtr item;
-		menu_items->Add(
+		menu_items->raw_Add(
 			variant_t(long(Office::msoControlButton)), 
 			vtMissing, 
 			vtMissing, 
@@ -138,7 +138,7 @@ void AddinUi::InstallToolbar(Visio::IVApplicationPtr app)
 	Office::CommandBarPtr cb;
 	if (FAILED(cbs->get_Item(variant_t(ADDON_NAME), &cb)) || cb == NULL)
 	{
-		if (SUCCEEDED(cbs->Add(variant_t(ADDON_NAME), vtMissing, vtMissing, vtMissing, &cb)))
+		if (SUCCEEDED(cbs->raw_Add(variant_t(ADDON_NAME), vtMissing, vtMissing, vtMissing, &cb)))
 			cb->put_Visible(VARIANT_TRUE);
 	}
 
@@ -168,7 +168,7 @@ void AddinUi::UpdateButtons()
 		ClickEventRedirector* button = m_buttons[i];
 
 		Office::CommandBarControlPtr control;
-		cbs->FindControl(vtMissing, vtMissing, variant_t(button->m_tag), vtMissing, &control);
+		cbs->raw_FindControl(vtMissing, vtMissing, variant_t(button->m_tag), vtMissing, &control);
 
 		if (control != button->m_punk)
 		{

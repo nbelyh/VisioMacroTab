@@ -18,4 +18,5 @@
 
 #endif
 
+#include "import\MSO.tli"
 #include "import/VISLIB.tli"

@@ -62,7 +62,7 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	void Reload()
 	{
-		m_html.LoadHtmlFile(L"D:\\Projects\\github\\VisioMacroTab\\Addin\\res\\Window.html");
+		m_html.LoadHtmlFile(L"C:\\Users\\Nikolay\\Documents\\GitHub\\VisioMacroTab\\Addin\\res\\Window.html");
 		m_html.UpdateSize();
 	}
 

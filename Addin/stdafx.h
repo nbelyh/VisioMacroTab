@@ -32,7 +32,7 @@
 #include <Scintilla.h>
 #include <SciLexer.h>
 
-#include "import\MSADDNDR.tlh"
+#include "import\IDTExtensibility2.tlh"
 #include "import\MSO.tlh"
 #include "import\VISLIB.tlh"
 

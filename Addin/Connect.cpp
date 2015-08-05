@@ -268,7 +268,7 @@ STDMETHODIMP CConnect::OnBeginShutdown (SAFEARRAY ** /*custom*/ )
 	
 -------------------------------------------------------------------------*/
 
-STDMETHODIMP CConnect::GetCustomUI(BSTR RibbonID, BSTR * RibbonXml)
+STDMETHODIMP CConnect::raw_GetCustomUI(BSTR RibbonID, BSTR * RibbonXml)
 {
 	ENTER_METHOD();
 
