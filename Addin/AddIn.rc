@@ -136,7 +136,7 @@ IDR_ADDIN               REGISTRY                "res\\AddIn.rgs"
 
 STRINGTABLE 
 BEGIN
-    ID_SHOW_DOCKED_WINDOW   "MacroTabAddin"
+    ID_SHOW_DOCKED_WINDOW   "Macro Store"
 END
 
 #endif    // English (U.S.) resources

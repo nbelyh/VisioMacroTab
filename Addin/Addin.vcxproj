@@ -70,7 +70,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>11.0.60521.0</_ProjectFileVersion>
-	<HTMLayoutSDK>C:\Projects\Libs\HTMLayoutSDK\</HTMLayoutSDK>
+    <HTMLayoutSDK>C:\Projects\Libs\HTMLayoutSDK\</HTMLayoutSDK>
+    <NuGetPackageImportStamp>94e7091b</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)x86\$(Configuration)\</OutDir>
@@ -282,8 +283,10 @@
     <ResourceCompile Include="AddIn.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="res\AddIn.rgs" />
     <None Include="AddIn.def" />
+    <None Include="res\Window.html" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\Ribbon.xml" />
@@ -333,6 +336,11 @@
     <Image Include="res\button3.png" />
     <Image Include="res\button4.png" />
     <Image Include="res\button5.png" />
+    <Image Include="res\play-26.png" />
+    <Image Include="res\plus-26.png" />
+    <Image Include="res\save-26.png" />
+    <Image Include="res\window16.png" />
+    <Image Include="res\window32.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\scintilla\Scintilla.vcxproj">
@@ -346,5 +354,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\sqlite.redist.3.8.4.2\build\native\sqlite.redist.targets" Condition="Exists('..\packages\sqlite.redist.3.8.4.2\build\native\sqlite.redist.targets')" />
+    <Import Project="..\packages\sqlite.3.8.4.2\build\native\sqlite.targets" Condition="Exists('..\packages\sqlite.3.8.4.2\build\native\sqlite.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\sqlite.redist.3.8.4.2\build\native\sqlite.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sqlite.redist.3.8.4.2\build\native\sqlite.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\sqlite.3.8.4.2\build\native\sqlite.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sqlite.3.8.4.2\build\native\sqlite.targets'))" />
+  </Target>
 </Project>

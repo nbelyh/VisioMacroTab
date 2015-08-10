@@ -19,6 +19,8 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="AddIn.def" />
+    <None Include="packages.config" />
+    <None Include="res\Window.html" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="res\Ribbon.xml">
@@ -113,5 +115,10 @@
     <Image Include="res\button5.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\plus-26.png" />
+    <Image Include="res\play-26.png" />
+    <Image Include="res\save-26.png" />
+    <Image Include="res\window32.png" />
+    <Image Include="res\window16.png" />
   </ItemGroup>
 </Project>
