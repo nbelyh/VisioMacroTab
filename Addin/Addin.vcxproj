@@ -298,8 +298,7 @@
     <ClCompile Include="lib\ScintillaCtrl.cpp" />
     <ClCompile Include="Scripts.cpp" />
     <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\TextFile.cpp" />
     <ClCompile Include="lib\UI.cpp" />
@@ -357,6 +356,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+  </Target>
+  <Target Name="CopyExternalResources" BeforeTargets="BuildCompile">
+	<ItemGroup>
+		<ExternalResources Include="res\**\*" />
+	</ItemGroup>
+    <Copy SourceFiles="@(ExternalResources)" DestinationFolder="$(OutDir)res\" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="CopyExternalBinaries32" BeforeTargets="BuildCompile" Condition="'$(Platform)'=='Win32'">
 	<ItemGroup>

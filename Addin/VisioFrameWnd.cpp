@@ -62,7 +62,15 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 
 	void Reload()
 	{
-		m_html.LoadHtmlFile(L"C:\\Users\\Nikolay\\Documents\\GitHub\\VisioMacroTab\\Addin\\res\\Window.html");
+		WCHAR path[MAX_PATH] = { 0 };
+		GetModuleFileName(AfxGetInstanceHandle(), path, MAX_PATH);
+		PathRemoveFileSpec(path);
+		PathAddBackslash(path);
+		PathAppend(path, L"res");
+		PathAddBackslash(path);
+		PathAppend(path, L"Window.html");
+
+		m_html.LoadHtmlFile(path);
 		m_html.UpdateSize();
 	}
 

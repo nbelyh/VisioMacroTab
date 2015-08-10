@@ -40,7 +40,7 @@
       <Directory Id="$(var.cf)">
         <Directory Id="COMPANYDIR" Name="UnmanagedVisio" >
           <Directory Id="INSTALLLOCATION" Name="VisioMacroTabAddin">
-
+            <Directory Id="RESOURCES" Name="res" />
           </Directory>
         </Directory>
       </Directory>
@@ -48,6 +48,7 @@
 
     <Feature Id="ProductFeature" Title="VisioMacroTabAddin" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="Resources" />
     </Feature>
 
     <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>
@@ -59,16 +60,33 @@
   </Product>
 
   <Fragment>
+
+    <ComponentGroup Id="Resources" Directory="RESOURCES" Source="$(var.Binaries)res">
+      <Component>
+        <File Name="Window.html" />
+      </Component>
+      <Component>
+        <File Name="play-26.png" />
+      </Component>
+      <Component>
+        <File Name="plus-26.png" />
+      </Component>
+      <Component>
+        <File Name="save-26.png" />
+      </Component>
+    </ComponentGroup>
+    
     <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
-      <Component Id="Scintlla" Win64="$(var.Win64YesNo)">
+      
+      <Component Win64="$(var.Win64YesNo)">
         <File Source="$(var.Binaries)SciLexer.dll" />
       </Component>
 
-      <Component Id="htmlayout" Win64="$(var.Win64YesNo)">
+      <Component Win64="$(var.Win64YesNo)">
         <File Source="$(var.Binaries)htmlayout.dll" />
       </Component>
 
-      <Component Id="Addin" Win64="$(var.Win64YesNo)">
+      <Component Win64="$(var.Win64YesNo)">
 
         <File Source="$(var.Binaries)Addin.dll" >
           <TypeLib Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
@@ -82,11 +100,12 @@
         </File>
       </Component>
 
-      <Component Id="visioRegistration" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
+      <Component Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
         <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\VisioMacroTabAddin.Connect">
           <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
           <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
           <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
+          <RegistryValue Name="InstallPath" Type="string" Value="INSTALLLOCATION" />
         </RegistryKey>
       </Component>
 
