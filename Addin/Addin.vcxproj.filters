@@ -59,6 +59,7 @@
     <ClCompile Include="lib\ScintillaCtrl.cpp">
       <Filter>lib</Filter>
     </ClCompile>
+    <ClCompile Include="model\ScriptStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Addin.h" />
@@ -94,6 +95,8 @@
     <ClInclude Include="lib\ScintillaCtrl.h">
       <Filter>lib</Filter>
     </ClInclude>
+    <ClInclude Include="model\Script.h" />
+    <ClInclude Include="model\ScriptStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="AddIn.idl" />

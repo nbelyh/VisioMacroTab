@@ -296,6 +296,7 @@
     <ClCompile Include="lib\Language.cpp" />
     <ClCompile Include="lib\PictureConvert.cpp" />
     <ClCompile Include="lib\ScintillaCtrl.cpp" />
+    <ClCompile Include="model\ScriptStorage.cpp" />
     <ClCompile Include="Scripts.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -310,11 +311,13 @@
   <ItemGroup>
     <ClInclude Include="Addin.h" />
     <ClInclude Include="Connect.h" />
+    <ClInclude Include="model\ScriptStorage.h" />
     <ClInclude Include="lib\HTMLayoutCtrl.h" />
     <ClInclude Include="lib\Language.h" />
     <ClInclude Include="lib\PictureConvert.h" />
     <ClInclude Include="lib\ScintillaCtrl.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="model\Script.h" />
     <ClInclude Include="Scripts.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="lib\TextFile.h" />
@@ -358,21 +361,21 @@
     </PropertyGroup>
   </Target>
   <Target Name="CopyExternalResources" BeforeTargets="BuildCompile">
-	<ItemGroup>
-		<ExternalResources Include="res\**\*" />
-	</ItemGroup>
+    <ItemGroup>
+      <ExternalResources Include="res\**\*" />
+    </ItemGroup>
     <Copy SourceFiles="@(ExternalResources)" DestinationFolder="$(OutDir)res\" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="CopyExternalBinaries32" BeforeTargets="BuildCompile" Condition="'$(Platform)'=='Win32'">
-	<ItemGroup>
-		<ExternalBinaries Include="$(HTMLayoutSDK)bin\htmlayout.dll" />
-	</ItemGroup>
+    <ItemGroup>
+      <ExternalBinaries Include="$(HTMLayoutSDK)bin\htmlayout.dll" />
+    </ItemGroup>
     <Copy SourceFiles="@(ExternalBinaries)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="CopyExternalBinaries64" BeforeTargets="BuildCompile" Condition="'$(Platform)'=='x64'">
-	<ItemGroup>
-		<ExternalBinaries Include="$(HTMLayoutSDK)bin64\htmlayout.dll" />
-	</ItemGroup>
+    <ItemGroup>
+      <ExternalBinaries Include="$(HTMLayoutSDK)bin64\htmlayout.dll" />
+    </ItemGroup>
     <Copy SourceFiles="@(ExternalBinaries)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
