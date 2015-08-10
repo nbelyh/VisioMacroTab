@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <?define Binaries="$(var.SolutionDir)$(var.Platform)\$(var.Configuration)" ?>
+  <?define Binaries="$(var.SolutionDir)$(var.Platform)\$(var.Configuration)\" ?>
   <?define Version="1.0.0.0"?>
 
   <?if $(var.Platform)=x64 ?>
@@ -29,7 +29,7 @@
              Platform="$(var.Platform)"
              />
 
-    <Property Id="MSIFASTINSTALL">1</Property>
+    <Property Id="MSIFASTINSTALL">7</Property>
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
@@ -41,36 +41,13 @@
         <Directory Id="COMPANYDIR" Name="UnmanagedVisio" >
           <Directory Id="INSTALLLOCATION" Name="VisioMacroTabAddin">
 
-            <Component Id="ProductComponent" Win64="$(var.Win64YesNo)">
-
-              <File Source="$(var.Binaries)\Addin.dll" >
-                <TypeLib Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
-                  <Class Id="{D62269B9-72CD-4ae9-BD41-B803A832B6F9}" Context="InprocServer32" ThreadingModel="apartment">
-                    <ProgId Id="VisioMacroTabAddin.Connect.1" Description="VisioMacroTabAddin">
-                      <ProgId Id="VisioMacroTabAddin.Connect" Description="VisioMacroTabAddin" />
-                    </ProgId>
-                  </Class>
-                  <Interface Id="{76973C5D-E651-4f97-A90F-613AAC31933B}" Name="IConnect" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
-                </TypeLib>
-              </File>
-            </Component>
-
-            <Component Id="visioRegistration" DiskId="5" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
-              <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\VisioMacroTabAddin.Connect">
-                <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
-                <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
-                <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
-              </RegistryKey>
-            </Component>
-
           </Directory>
         </Directory>
       </Directory>
     </Directory>
 
     <Feature Id="ProductFeature" Title="VisioMacroTabAddin" Level="1">
-      <ComponentRef Id="ProductComponent" />
-      <ComponentRef Id="visioRegistration" />
+      <ComponentGroupRef Id="ProductComponents" />
     </Feature>
 
     <WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>
@@ -80,4 +57,40 @@
     <UIRef Id="WixUI_InstallDir" />
 
   </Product>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
+      <Component Id="Scintlla" Win64="$(var.Win64YesNo)">
+        <File Source="$(var.Binaries)SciLexer.dll" />
+      </Component>
+
+      <Component Id="htmlayout" Win64="$(var.Win64YesNo)">
+        <File Source="$(var.Binaries)htmlayout.dll" />
+      </Component>
+
+      <Component Id="Addin" Win64="$(var.Win64YesNo)">
+
+        <File Source="$(var.Binaries)Addin.dll" >
+          <TypeLib Id="{2445B4EC-CD68-4a61-B695-4ED95A69FB9D}" Language="0" MajorVersion="1" MinorVersion="0">
+            <Class Id="{D62269B9-72CD-4ae9-BD41-B803A832B6F9}" Context="InprocServer32" ThreadingModel="apartment">
+              <ProgId Id="VisioMacroTabAddin.Connect.1" Description="VisioMacroTabAddin">
+                <ProgId Id="VisioMacroTabAddin.Connect" Description="VisioMacroTabAddin" />
+              </ProgId>
+            </Class>
+            <Interface Id="{76973C5D-E651-4f97-A90F-613AAC31933B}" Name="IConnect" ProxyStubClassId="{00020424-0000-0000-C000-000000000046}" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+          </TypeLib>
+        </File>
+      </Component>
+
+      <Component Id="visioRegistration" Guid="{6C2BBC2F-81D8-46e9-8219-EB7DFE6383A8}">
+        <RegistryKey Root="HKMU" Key="Software\Microsoft\Visio\Addins\VisioMacroTabAddin.Connect">
+          <RegistryValue Name="Description" Type="string" Value="DiagramsTab" />
+          <RegistryValue Name="FriendlyName" Type="string" Value="DiagramsTab" KeyPath="yes" />
+          <RegistryValue Name="LoadBehavior" Type="integer" Value="3" />
+        </RegistryKey>
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+  
 </Wix>
