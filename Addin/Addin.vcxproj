@@ -283,7 +283,6 @@
     <ResourceCompile Include="AddIn.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="res\AddIn.rgs" />
     <None Include="AddIn.def" />
     <None Include="res\Window.html" />

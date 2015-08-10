@@ -19,7 +19,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="AddIn.def" />
-    <None Include="packages.config" />
     <None Include="res\Window.html" />
   </ItemGroup>
   <ItemGroup>
