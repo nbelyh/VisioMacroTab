@@ -17,7 +17,7 @@
 
             #snippetlist > li {
                 transition: slide;
-                border-bottom:1px solid #bbb;
+                border-bottom: 1px solid #bbb;
             }
 
                 #snippetlist > li > .caption {
@@ -46,30 +46,19 @@
                 display: block;
             }
 
-        div.tbbutton {
+        .tbbutton {
             width: 32px;
             height: 32px;
             margin-top: 5px;
             margin-left: 5px;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
+			display: block;
         }
 
-            div.tbbutton:hover {
+            .tbbutton:hover {
                 foreground-image-transformation: contrast-brightness-gamma(0.5, .7, .8);
                 /* outline:3px glow yellow 3px; */
                 /* transition:blend; */
-            }
-
-            div.tbbutton#new {
-                foreground-image: url(plus-26.png);
-            }
-
-            div.tbbutton#save {
-                foreground-image: url(save-26.png);
-            }
-
-            div.tbbutton#play {
-                foreground-image: url(play-26.png);
             }
 
         splitter {
@@ -94,37 +83,38 @@
 </head>
 <body>
     <frameset rows="0,200,*">
-	<div id="nav">
-        <a href="#">Online</a>
-        <a href="#">My</a>
-		<input id="search" type="text" />
-    </div>
-	<div id="top">
-		<ul id="snippetlist">
-			<li default><div class="caption"><strong>Pink Floyd</strong>: Dark Side o the Moon</div>
-				<div class="details">
-				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
-				</div>
-			</li>
-			<li><div class="caption"><strong>Pink Floyd</strong>: Delicate Sounds of Thunder</div>
-				<div class="details">
-				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
-				</div>
-			</li>
-			<li><div class="caption"><strong>Pink Floyd</strong>: The Final Cut</div>
-				<div class="details">
-				   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
-				</div>
-			</li>
-		</ul>
-	    <div id="toolbar" style="flow:horizontal">
-		  <div class="tbbutton" id="new" />
-		  <div class="tbbutton" id="save" />
-		  <div class="tbbutton" id="play" />
-	    </div>
-	</div>
-	<splitter />
-	<widget type="script" />
-  </frameset>
+        <div id="nav">
+            <input id="search" type="text" />
+        </div>
+        <div id="top">
+            <ul id="snippetlist">
+                <li default>
+                    <div class="caption"><strong>Pink Floyd</strong>: Dark Side o the Moon</div>
+                    <div class="details">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+                    </div>
+                </li>
+                <li>
+                    <div class="caption"><strong>Pink Floyd</strong>: Delicate Sounds of Thunder</div>
+                    <div class="details">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+                    </div>
+                </li>
+                <li>
+                    <div class="caption"><strong>Pink Floyd</strong>: The Final Cut</div>
+                    <div class="details">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a orci facilisis, ullamcorper nulla accumsan, semper augue. Cras varius luctus nisi ac porta. Mauris mattis, diam eleifend condimentum adipiscing, nibh leo porttitor mauris, et ornare sem urna eu mauris. Duis vestibulum lacus lorem, sed iaculis augue viverra volutpat. Nullam at velit leo.
+                    </div>
+                </li>
+            </ul>
+            <div id="toolbar" style="flow:horizontal">
+                <a href="#" id="new"><img class="tbbutton" src="plus-26.png"/></a>
+                <a href="#" id="save"><img class="tbbutton" src="save-26.png"/></a>
+                <a href="#" id="play"><img class="tbbutton" src="play-26.png"/></a>
+            </div>
+        </div>
+        <splitter />
+        <widget type="script" />
+    </frameset>
 </body>
 </html>

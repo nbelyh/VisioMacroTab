@@ -51,7 +51,7 @@ struct CVisioFrameWnd::Impl : public VEventHandler
 		switch(nEventCode) 
 		{
 		case (short)(visEvtCodeWinSelChange):
-			Reload();
+			// Reload();
 			break;
 		}
 
@@ -193,7 +193,10 @@ LRESULT CVisioFrameWnd::OnHtmlayoutHyperlink(WPARAM wp, LPARAM lp)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 
-	// LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
+	LPCWSTR id = reinterpret_cast<LPCWSTR>(wp);
+
+	if (!StrCmp(id, L"play"))
+		m_impl->Run();
 
 	return 0;
 }

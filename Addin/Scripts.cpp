@@ -286,6 +286,16 @@ HRESULT RunScript(LPCWSTR script_text,
 
 	holder.pGlobals->SetApplication(app);
 
+	CComDispatchDriver app_disp(app);
+
+	CComVariant v_active_page;
+	if (SUCCEEDED(app_disp.GetPropertyByName(L"ActivePage", &v_active_page)))
+		holder.pGlobals->SetActivePage(V_DISPATCH(&v_active_page));
+
+	CComVariant v_active_document;
+	if (SUCCEEDED(app_disp.GetPropertyByName(L"ActiveDocument", &v_active_document)))
+		holder.pGlobals->SetActiveDocument(V_DISPATCH(&v_active_document));
+
 	holder.pSite->Init(holder.pGlobals, callback);
 
 	HRESULT hr;
